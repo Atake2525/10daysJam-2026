@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "AABB.h"
 #include "Matrix4x4.h"
@@ -7,8 +7,8 @@
 #include <cassert>
 #include <cmath>
 
-// ‘ã“ü‰‰ZqƒI[ƒo[ƒ[ƒh
-// Vector3‚Ì‘«‚µZ
+// ä»£å…¥æ¼”ç®—å­ã‚ªãƒ¼ãƒãƒ¼ãƒ­ãƒ¼ãƒ‰
+// Vector3ã®è¶³ã—ç®—
 Vector3& operator+=(Vector3& lhs, const Vector3& rhv);
 
 Vector3& operator-=(Vector3& lhs, const Vector3& rhv);
@@ -17,12 +17,12 @@ Vector3 operator+(const Vector3& v1, const Vector3& v2);
 
 bool IsCollision(const AABB& aabb1, const AABB& aabb2);
 
-// ‘ã“ü‰‰ZqƒI[ƒo[ƒ[ƒh
-// Vector3‚ÌŠ|‚¯Z
+// ä»£å…¥æ¼”ç®—å­ã‚ªãƒ¼ãƒãƒ¼ãƒ­ãƒ¼ãƒ‰
+// Vector3ã®æ›ã‘ç®—
 Vector3& operator*=(Vector3& v, float s);
 
-// 2€‰‰ZqƒI[ƒo[ƒ[ƒh
-// Vector3‚ÌŠ|‚¯Z
+// 2é …æ¼”ç®—å­ã‚ªãƒ¼ãƒãƒ¼ãƒ­ãƒ¼ãƒ‰
+// Vector3ã®æ›ã‘ç®—
 const Vector3 operator*(const Vector3& v, float s);
 
 // ease In-Out
@@ -33,21 +33,21 @@ float Lerp(float x1, float x2, float t);
 
 Vector3 Lerp(const Vector3& v1, const Vector3& v2, float t);
 
-// 1, x²‰ñ“]s—ñ
+// 1, xè»¸å›è»¢è¡Œåˆ—
 Matrix4x4 MakeRotateXMatrix(float radian);
 
-// 2, y²‰ñ“]s—ñ
+// 2, yè»¸å›è»¢è¡Œåˆ—
 Matrix4x4 MakeRotateYMatrix(float radian);
 
-// 3, z²‰ñ“]s—ñ
+// 3, zè»¸å›è»¢è¡Œåˆ—
 Matrix4x4 MakeRotateZMatrix(float radian);
 
 Matrix4x4 Multiply(const Matrix4x4& m1, const Matrix4x4& m2);
 
-// ‚RŸŒ³ƒAƒtƒBƒ“•ÏŠ·s—ñ
+// ï¼“æ¬¡å…ƒã‚¢ãƒ•ã‚£ãƒ³å¤‰æ›è¡Œåˆ—
 Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate);
 
-// 3, À•W•ÏŠ·
+// 3, åº§æ¨™å¤‰æ›
 Vector3 MathTransform(const Vector3& vector, const Matrix4x4& matrix);
 
 float Dot(const Vector3& v1, const Vector3& v2);

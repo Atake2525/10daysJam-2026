@@ -1,36 +1,21 @@
-#include "GameScene.h"
+﻿#include "Stage01.h"
 #include "TextureManager.h"
 #include <cassert>
 
-GameScene::GameScene() {}
+Stage01::Stage01() {}
 
-GameScene::~GameScene() {}
+Stage01::~Stage01() {}
 
-void GameScene::Initialize() {
+void Stage01::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 }
 
-void GameScene::Update() {
-	if (Input::GetInstance()->PushKey(DIK_LEFT)) {
-		selectStage_ -= 1;
-	}
-	if (Input::GetInstance()->PushKey(DIK_LEFT)) {
-		selectStage_ += 1;
-	}
-	if (selectStage_ <= 0) {
-		selectStage_ = StageNum;
-	} else if (selectStage_ > StageNum) {
-		selectStage_ = 1;
-	}
-	if (Input::GetInstance()->TriggerKey(DIK_SPACE)) {
-		finished_ = true;
-	}
-}
+void Stage01::Update() {}
 
-void GameScene::Draw() {
+void Stage01::Draw() {
 
 	// コマンドリストの取得
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();

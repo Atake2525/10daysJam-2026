@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "Audio.h"
 #include "DirectXCommon.h"
@@ -7,23 +7,22 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
-#include "Stage01.h"
 
 /// <summary>
 /// ゲームシーン
 /// </summary>
-class GameScene {
+class Stage01 {
 
 public: // メンバ関数
 	/// <summary>
 	/// コンストクラタ
 	/// </summary>
-	GameScene();
+	Stage01();
 
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~GameScene();
+	~Stage01();
 
 	/// <summary>
 	/// 初期化
@@ -43,21 +42,15 @@ public: // メンバ関数
 	// シーン切り替えのgetter
 	bool IsFinihed() const { return finished_; }
 
-	// ステージセレクトのgetter
-	int SelectStage() { return selectStage_; }
+	// ステージgetter
+	int GetStage() const { return 1; }
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
-	
-	bool finished_ = false;
-	// 選択されているステージ
-	int selectStage_ = 1;
-	// ステージの数
-	int StageNum = 1;
 
-	Stage01* stage01 = nullptr;
+	bool finished_ = false;
 
 	/// <summary>
 	/// ゲームシーン用

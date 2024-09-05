@@ -1,4 +1,4 @@
-#include "Audio.h"
+﻿#include "Audio.h"
 #include "AxisIndicator.h"
 #include "DirectXCommon.h"
 #include "GameScene.h"
@@ -6,6 +6,27 @@
 #include "PrimitiveDrawer.h"
 #include "TextureManager.h"
 #include "WinApp.h"
+#include "TitleScene.h"
+#include "Stage01.h"
+
+enum class Scene {
+	kUnknown = 0,
+
+	kTitle,
+	kStageSelect,
+	kStage01,
+
+};
+
+// 現在シーン(型)
+Scene scene = Scene::kUnknown;
+
+GameScene* gameScene = nullptr;
+TitleScene* titleScene = nullptr;
+Stage01* stage01 = nullptr;
+void ChangeScene();
+void UpdateScene();
+void DrawScene();
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -16,11 +37,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Audio* audio = nullptr;
 	AxisIndicator* axisIndicator = nullptr;
 	PrimitiveDrawer* primitiveDrawer = nullptr;
-	GameScene* gameScene = nullptr;
 
 	// ゲームウィンドウの作成
 	win = WinApp::GetInstance();
-	win->CreateGameWindow(L"LE2D_02_オオタケ_アオイ_AL3");
+	win->CreateGameWindow(L"2026_ゲームタイトル");
 
 	// DirectX初期化処理
 	dxCommon = DirectXCommon::GetInstance();
@@ -58,8 +78,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 #pragma endregion
 
 	// ゲームシーンの初期化
-	gameScene = new GameScene();
-	gameScene->Initialize();
+	scene = Scene::kTitle;
+	titleScene = new TitleScene();
+	titleScene->Initialize();
 
 	// メインループ
 	while (true) {
@@ -73,7 +94,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		// 入力関連の毎フレーム処理
 		input->Update();
 		// ゲームシーンの毎フレーム処理
-		gameScene->Update();
+		// シーンの切り替え
+		ChangeScene();
+		// 現在シーン更新
+		UpdateScene();
 		// 軸表示の更新
 		axisIndicator->Update();
 		// ImGui受付終了
@@ -82,7 +106,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		// 描画開始
 		dxCommon->PreDraw();
 		// ゲームシーンの描画
-		gameScene->Draw();
+		// 現在シーンの描画
+		DrawScene();
 		// 軸表示の描画
 		axisIndicator->Draw();
 		// プリミティブ描画のリセット
@@ -94,7 +119,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	}
 
 	// 各種解放
+	delete titleScene;
 	delete gameScene;
+	delete stage01;
 	// 3Dモデル解放
 	Model::StaticFinalize();
 	audio->Finalize();
@@ -105,4 +132,70 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	win->TerminateGameWindow();
 
 	return 0;
+}
+
+void ChangeScene() { 
+switch (scene) {
+	case Scene::kTitle:
+	if (titleScene->IsFinished()) {
+		// シーン変更
+		scene = Scene::kStageSelect;
+		// 旧シーンの解放
+		delete titleScene;
+		titleScene = nullptr;
+		// 新シーンの作成と初期化
+		gameScene = new GameScene;
+		gameScene->Initialize();
+	}
+		break;
+	case Scene::kStageSelect:
+		if (gameScene->IsFinihed()) {
+			// シーン変更
+			if (gameScene->SelectStage() == 1) {
+				scene = Scene::kStage01;
+				// 旧シーンの解放
+				delete gameScene;
+				gameScene = nullptr;
+				// 新シーンの生成と初期化
+				stage01 = new Stage01;
+				stage01->Initialize();
+			}
+		}
+		break;
+	default:
+		break;
+	}
+}
+
+
+void UpdateScene() {
+	switch (scene) {
+	case Scene::kTitle:
+		titleScene->Update();
+		break;
+	case Scene::kStageSelect:
+		gameScene->Update();
+		break;
+	case Scene::kStage01:
+		stage01->Update();
+		break;
+	default:
+		break;
+	}
+}
+
+void DrawScene() {
+	switch (scene) {
+	case Scene::kTitle:
+		titleScene->Draw();
+		break;
+	case Scene::kStageSelect:
+		gameScene->Draw();
+		break;
+	case Scene::kStage01:
+		stage01->Draw();
+		break;
+	default:
+		break;
+	}
 }
