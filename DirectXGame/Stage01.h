@@ -7,6 +7,7 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "MapChipField.h"
 
 /// <summary>
 /// ゲームシーン
@@ -45,12 +46,22 @@ public: // メンバ関数
 	// ステージgetter
 	int GetStage() const { return 1; }
 
+
+	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 
 	bool finished_ = false;
+
+	MapChipField* mapChipField_ = nullptr;
+	Model* blockModel_ = nullptr;
+
+	ViewProjection viewProjection_;
+
+	void GenerateBlocks();
 
 	/// <summary>
 	/// ゲームシーン用
