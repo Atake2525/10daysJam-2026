@@ -149,7 +149,7 @@ switch (scene) {
 	}
 		break;
 	case Scene::kStageSelect:
-		if (gameScene->IsFinihed()) {
+		if (gameScene->IsFinished()) {
 			// シーン変更
 			if (gameScene->SelectStage() == 1) {
 				scene = Scene::kStage01;

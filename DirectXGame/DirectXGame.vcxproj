@@ -111,9 +111,11 @@
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="kMath.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapChipField.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
     <ClCompile Include="Stage01.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="WorldTransformEx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2d\ImGuiManager.h" />
@@ -142,6 +144,7 @@
     <ClInclude Include="base\WinApp.h" />
     <ClInclude Include="input\Input.h" />
     <ClInclude Include="kMath.h" />
+    <ClInclude Include="MapChipField.h" />
     <ClInclude Include="math\Matrix4x4.h" />
     <ClInclude Include="math\Vector2.h" />
     <ClInclude Include="math\Vector3.h" />
