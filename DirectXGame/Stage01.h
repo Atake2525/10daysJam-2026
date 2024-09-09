@@ -9,6 +9,7 @@
 #include "WorldTransform.h"
 #include "MapChipField.h"
 #include "Player.h"
+#include "FallRock.h"
 
 /// <summary>
 /// ゲームシーン
@@ -63,7 +64,14 @@ private: // メンバ変数
 	MapChipField* mapChipField_ = nullptr;
 	Model* blockModel_ = nullptr;
 
+	FallRock* fallRock_[200];
+	Model* modelFallRock_ = nullptr;
+
+	int rockNum_ = 0;
+
+
 	ViewProjection viewProjection_;
+
 
 	void GenerateBlocks();
 

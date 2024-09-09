@@ -1,0 +1,163 @@
+﻿15:32 でビルドが開始されました...
+1>------ ビルド開始: プロジェクト: DirectXGame, 構成: Debug x64 ------
+1>FallRock.cpp
+1>main.cpp
+1>MapChipField.cpp
+1>GameScene.cpp
+1>Stage01.cpp
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): error C2220: 次の警告はエラーとして処理されます
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0xa7 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0xa8 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0xa9 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0xaa から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0xab から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0xac から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x116 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x118 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x153 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x155 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x156 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x22e から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x230 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x231 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x232 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x234 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x236 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x237 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x238 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x239 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x23a から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x23e から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x240 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x242 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x245 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x249 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x24b から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x24c から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x277 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x279 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x27a から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x27b から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x27d から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x27f から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x280 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x281 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x282 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x283 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x284 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x285 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x286 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x287 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x288 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x28b から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x291 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x293 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x294 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x296 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x29a から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x29b から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x2ca から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x2cb から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x2cc から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x2cd から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x2ce から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x2cf から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x2d0 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x2d1 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x2d2 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x2d3 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x2d4 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x2d8 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x2d9 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x2da から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x302 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x303 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x304 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x305 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x306 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x309 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x30a から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x30e から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x312 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x313 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.h(1,1): warning C4828: オフセット 0x314 から始まる、現在のソースの文字セット (コードページ 65001) では使用できない文字がファイルに含まれています。
+1>(ソース ファイル 'FallRock.cpp' をコンパイルしています)
+1>C:\Users\k023g\OneDrive\デスクトップ\2024_codeFile\AL3\10days\10days\DirectXGame\FallRock.cpp(16,44): warning C4244: '=': 'uint32_t' から 'float' への変換です。データが失われる可能性があります。
+1>プロジェクト "DirectXGame.vcxproj" のビルドが終了しました -- 失敗。
+========== ビルド: 成功 0、失敗 1、最新の状態 0、スキップ 0 ==========
+=========== ビルド は 15:32 で完了し、03.825 秒 掛かりました ==========

@@ -2,6 +2,7 @@
 #include "TextureManager.h"
 #include "kMath.h"
 #include <cassert>
+#include "imgui.h"
 
 
 void Stage01::GenerateBlocks() {
@@ -12,13 +13,13 @@ void Stage01::GenerateBlocks() {
 	// 要素数を変更する
 	// 列数を設定(縦方向のブロック数)
 	worldTransformBlocks_.resize(kNumBlockVirtical);
-	for (uint32_t i = 0; i < kNumBlockVirtical; i++) {
+	for (uint32_t i = 0; i < kNumBlockVirtical; ++i) {
 		// 1列の要素数を設定(横方向のブロック数)
 		worldTransformBlocks_[i].resize(kNumBlockHorizontal);
 	}
 	// ブロックの生成
-	for (uint32_t i = 0; i < kNumBlockVirtical; i++) {
-		for (uint32_t j = 0; j < kNumBlockHorizontal; j++) {
+	for (uint32_t i = 0; i < kNumBlockVirtical; ++i) {
+		for (uint32_t j = 0; j < kNumBlockHorizontal; ++j) {
 			if (mapChipField_->GetMapChiptypeByIndex(j, i) == MapChipType::kBlock) {
 				WorldTransform* worldTransform = new WorldTransform();
 				worldTransform->Initialize();
@@ -38,7 +39,11 @@ Stage01::~Stage01() {
 		}
 	}
 	worldTransformBlocks_.clear();
+	delete player_;
 	delete mapChipField_;
+	for (int i = 0; i < 200; i++) {
+		delete fallRock_[i];
+	}
 }
 
 void Stage01::Initialize() {
@@ -56,7 +61,17 @@ void Stage01::Initialize() {
 	modelPlayer_ = Model::CreateFromOBJ("player");
 	player_->Initialize(modelPlayer_, &viewProjection_, {0, 0, 0});
 
+	modelFallRock_ = Model::CreateFromOBJ("soil");
+
+	for (int i = 0; i < 200; i++) {
+		fallRock_[i] = new FallRock;
+		fallRock_[i]->Initialize(modelFallRock_, &viewProjection_);
+		fallRock_[i]->SetMapChipField(mapChipField_);
+	}
+
 	viewProjection_.Initialize();
+	viewProjection_.translation_ = {4, 3, -20.0f};
+
 }
 
 void Stage01::Update() {
@@ -69,9 +84,19 @@ void Stage01::Update() {
 			worldTransformBlock->matWorld_ = MakeAffineMatrix(worldTransformBlock->scale_, worldTransformBlock->rotation_, worldTransformBlock->translation_);
 			// 定数バッファに転送する
 			worldTransformBlock->TransferMatrix();
+			worldTransformBlock->UpdateMatrix();
 		}
 	}
+	ImGui::Begin("camera");
+	ImGui::DragFloat3("camera", &viewProjection_.translation_.x, 0.1f);
+	ImGui::End();
+
 	player_->Update();
+	fallRock_[rockNum_]->Update();
+	if (fallRock_[rockNum_]->GetMoveFinish() == true) {
+		rockNum_++;
+	}
+	viewProjection_.UpdateMatrix();
 }
 
 void Stage01::Draw() {
@@ -107,6 +132,9 @@ void Stage01::Draw() {
 				continue;
 			blockModel_->Draw(*worldTransformBlock, viewProjection_);
 		}
+	}
+	for (int i = 0; i < 200; i++) {
+		fallRock_[i]->Draw();
 	}
 	player_->Draw();
 

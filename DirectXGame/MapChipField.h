@@ -33,15 +33,18 @@ public:
 		float top;    // 上端
 	};
 
+
 public:
 	// 1ブロックのサイズ
+	// 幅
 	static inline const float kBlockWidth = 1.0f;
+	// 高さ
 	static inline const float kBlockHeight = 1.0f;
 	// ブロックの個数
 	// 横
-	static inline const uint32_t kNumBlockVirtical = 20;
+	static inline const uint32_t kNumBlockHorizontal = 10;
 	// 縦
-	static inline const uint32_t kNumBlockHorizontal = 50;
+	static inline const uint32_t kNumBlockVirtical = 20;
 
 	const uint32_t GetNumBlockVirtical() { return kNumBlockVirtical; }
 
@@ -66,4 +69,8 @@ public:
 	IndexSet GetMapChipIndexSetByPosition(const Vector3& position);
 
 	Rect GetRectByIndex(uint32_t xIndex, uint32_t yIndex);
+
+
+	WorldTransform worldTransform_;
+
 };
