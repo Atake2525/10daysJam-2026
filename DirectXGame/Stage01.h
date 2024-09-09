@@ -8,6 +8,7 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include "MapChipField.h"
+#include "Player.h"
 
 /// <summary>
 /// ゲームシーン
@@ -53,6 +54,9 @@ private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
+
+	Player* player_ = nullptr;
+	Model* modelPlayer_;
 
 	bool finished_ = false;
 

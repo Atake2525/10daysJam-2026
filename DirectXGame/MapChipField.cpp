@@ -9,7 +9,7 @@ namespace {
 std::map<std::string, MapChipType> mapChipTable = {
     {"0", MapChipType::kBlank      },
     {"1", MapChipType::kBlock      },
-    //{"2", MapChipType::kSoil       },
+    {"2", MapChipType::kStone       },
     //{"3", MapChipType::kGoal       },
     //{"4", MapChipType::kWorldBorder},
 };
