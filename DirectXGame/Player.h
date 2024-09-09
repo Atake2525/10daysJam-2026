@@ -31,6 +31,7 @@ public:
 	// マップチップ当たり判定系
 	void SetMapChipField(MapChipField* mapChipField) { mapChipField_ = mapChipField; }
 
+
 	private:
 	// マップチップによるフィールド
 	MapChipField* mapChipField_ = nullptr;
@@ -42,11 +43,11 @@ public:
 		// プレイヤーの速度(変更不可)
 	    Vector3 velocity_ = {0};
 		// プレイヤーの加速度(変更可)
-	    float Acceleration_ = 0.01f;
+	    float Acceleration_ = 0.005f;
 		// ブレーキ強度(変更可)
-	    static inline const float attenuation_ = 0.2f;
+	    static inline const float attenuation_ = 0.15f;
 		// 速度の最大値(変更可)
-	    static inline const float limitRunSpeed_ = 0.3f;
+	    static inline const float limitRunSpeed_ = 0.2f;
 		
 		// プレイヤーのジャンプ初速(変更可)
 	    float JumpAcceleration_ = 0.4f;
