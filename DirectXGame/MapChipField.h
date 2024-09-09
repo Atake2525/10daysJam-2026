@@ -5,7 +5,7 @@
 enum class MapChipType {
 	kBlank,       // 空白
 	kBlock,       // ブロック
-	//kGoal,        // ゴール
+	kStone,        // 石
 	//kSoil,        // 土
 	//kWorldBorder, // ワールドボーダー
 	              // kSky, // 天井
@@ -41,7 +41,7 @@ public:
 	// 横
 	static inline const uint32_t kNumBlockVirtical = 20;
 	// 縦
-	static inline const uint32_t kNumBlockHorizontal = 20;
+	static inline const uint32_t kNumBlockHorizontal = 50;
 
 	const uint32_t GetNumBlockVirtical() { return kNumBlockVirtical; }
 

@@ -51,6 +51,11 @@ void Stage01::Initialize() {
 	mapChipField_->LoadMapChipCsv("Resources/Stage01.csv");
 	blockModel_ = Model::CreateFromOBJ("glassFloor");
 	GenerateBlocks();
+
+	player_ = new Player;
+	modelPlayer_ = Model::CreateFromOBJ("player");
+	player_->Initialize(modelPlayer_, &viewProjection_, {0, 0, 0});
+
 	viewProjection_.Initialize();
 }
 
@@ -66,6 +71,7 @@ void Stage01::Update() {
 			worldTransformBlock->TransferMatrix();
 		}
 	}
+	player_->Update();
 }
 
 void Stage01::Draw() {
@@ -102,6 +108,7 @@ void Stage01::Draw() {
 			blockModel_->Draw(*worldTransformBlock, viewProjection_);
 		}
 	}
+	player_->Draw();
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
