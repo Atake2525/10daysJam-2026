@@ -1,4 +1,6 @@
 ﻿#include "kMath.h"
+#include <cmath>
+#include <numbers>
 
 // Vector3の足し算
 Vector3& operator+=(Vector3& lhv, const Vector3& rhv) { 
@@ -38,15 +40,11 @@ const Vector3 operator*(const Vector3& v, float s) {
 };
 
 
-// ease In-Out
-float easeInOut(float t, float x1, float x2) {
-	float x;
-	// easeOut
-	float easedT = -(cos(float(M_PI * t)) - 1.0f) / 2.0f;
-
-	x = (1.0f - easedT) * x1 + easedT * x2;
-	return x;
-};
+// EaseInOut関数 02_05 p22
+float easeInOut(float x1, float x2, float t) {
+	float easedT = -(std::cosf(std::numbers::pi_v<float> * t) - 1.0f) / 2.0f;
+	return Lerp(x1, x2, easedT);
+}
 
 bool IsCollision(const AABB& aabb1, const AABB& aabb2) {
 	if ((aabb1.min.x <= aabb2.max.x && aabb1.max.x >= aabb2.min.x) &&     // x軸
@@ -67,7 +65,10 @@ float Lerp(float x1, float x2, float t) {
 };
 
 Vector3 Lerp(const Vector3& v1, const Vector3& v2, float t) { 
-	return Vector3(Lerp(v1.x, v2.x, t), Lerp(v1.y, v2.y, t), Lerp(v1.z, v2.z, t)); 
+	return Vector3(
+		Lerp(v1.x, v2.x, t), 
+		Lerp(v1.y, v2.y, t), 
+		Lerp(v1.z, v2.z, t)); 
 };
 
 // 1, x軸回転行列
