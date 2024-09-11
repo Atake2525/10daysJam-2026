@@ -68,12 +68,12 @@ private:
 	// プレイヤーの速度(変更不可)
 	Vector3 velocity_ = {0};
 	// プレイヤーの加速度(変更可)
-	float Acceleration_ = 0.1f;
+	float Acceleration_ = 0.15f;
 	// ブレーキ強度(変更可)
-	static inline const float attenuation_ = 0.05f;
+	static inline const float attenuation_ = 0.1f;
 	static inline const float kAttenuationWall = 0.2f;
 	// 着地時の速度減衰率
-	static inline const float kAttenuationLanding = 0.5f;
+	static inline const float kAttenuationLanding = 0.15f;
 	// プレイヤーのジャンプ初速(変更可)
 	float JumpAcceleration_ = 20.0f;
 	// 重力加速度(下方向)変更可
@@ -81,7 +81,7 @@ private:
 	// 最大落下速度(下方向)変更可
 	static inline const float limitFallSpeed_ = 0.5f;
 	// 速度の最大値(変更可)
-	static inline const float limitRunSpeed_ = 0.5f;
+	static inline const float limitRunSpeed_ = 0.1f;
 	// 旋回時間<秒>
 	static inline const float kTimeTurn = 0.3f;
 	static inline const float kWidth = 0.8f;

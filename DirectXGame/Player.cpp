@@ -68,7 +68,6 @@ AABB Player::GetAABB() {
 // プレイヤー移動系
 void Player::Move() {
 	// 移動入力
-	if (onGround) {
 		// 左右移動操作
 		if (Input::GetInstance()->PushKey(DIK_D) || Input::GetInstance()->PushKey(DIK_A)) {
 
@@ -118,16 +117,16 @@ void Player::Move() {
 		if (std::abs(velocity_.x) <= 0.0001f) {
 			velocity_.x = 0.0f;
 		}
-		if (Input::GetInstance()->PushKey(DIK_W)) {
+		if (Input::GetInstance()->PushKey(DIK_W) && onGround) {
 			// ジャンプ初速
 			velocity_ += Vector3(0, JumpAcceleration_ / 60.0f, 0);
 		}
-	} else {
-		// 落下速度
-		velocity_ += Vector3(0, -gravityAcceleration_ / 60.0f, 0);
-		// 落下速度制限
-		velocity_.y = std::max(velocity_.y, -limitFallSpeed_);
-	}
+	    if (onGround == false) {
+			// 落下速度
+		    velocity_ += Vector3(0, -gravityAcceleration_ / 60.0f, 0);
+		    // 落下速度制限
+		    velocity_.y = std::max(velocity_.y, -limitFallSpeed_);
+	    }
 }
 
 void Player::ChecMapCollision(CollisionMapInfo& info) {
