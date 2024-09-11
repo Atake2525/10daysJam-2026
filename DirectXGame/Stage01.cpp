@@ -1,9 +1,8 @@
 ﻿#include "Stage01.h"
 #include "TextureManager.h"
+#include "imgui.h"
 #include "kMath.h"
 #include <cassert>
-#include "imgui.h"
-
 
 void Stage01::GenerateBlocks() {
 	// 要素数
@@ -20,7 +19,7 @@ void Stage01::GenerateBlocks() {
 	// ブロックの生成
 	for (uint32_t i = 0; i < kNumBlockVirtical; ++i) {
 		for (uint32_t j = 0; j < kNumBlockHorizontal; ++j) {
-			if (mapChipField_->GetMapChiptypeByIndex(j, i) == MapChipType::kBlock) {
+			if (mapChipField_->GetMapChipTypeByIndex(j, i) == MapChipType::kBlock) {
 				WorldTransform* worldTransform = new WorldTransform();
 				worldTransform->Initialize();
 				worldTransformBlocks_[i][j] = worldTransform;
@@ -29,7 +28,7 @@ void Stage01::GenerateBlocks() {
 		}
 	}
 }
-	
+
 Stage01::Stage01() {}
 
 Stage01::~Stage01() {
@@ -53,14 +52,26 @@ void Stage01::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
+	// ワールドトランスフォームの初期化
+	worldTransform_.Initialize();
+	// ビュープロジェクションの初期化
+	viewProjection_.Initialize();
+
 	mapChipField_ = new MapChipField;
 	mapChipField_->LoadMapChipCsv("Resources/Stage01.csv");
 	blockModel_ = Model::CreateFromOBJ("glassFloor");
+
 	GenerateBlocks();
 
+	// 座標をマップチップ番号で指定
+	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(5, 19);
 	player_ = new Player;
 	modelPlayer_ = Model::CreateFromOBJ("player");
 	player_->Initialize(modelPlayer_, &viewProjection_, {0, 0, 0});
+	player_->SetMapChipField(mapChipField_);
+
+	player_->Update();
+	Vector3 position = player_->GetWorldPosition();
 
 	modelFallRock_ = Model::CreateFromOBJ("soil");
 	modelRockBlock_ = Model::CreateFromOBJ("glassFloor");
@@ -80,7 +91,6 @@ void Stage01::Initialize() {
 	//viewProjection_.translation_ = {4, 3, -20.0f};
 	viewProjection_.translation_ = {4.5f, 10.0f, -15.0f};
 	viewProjection_.rotation_ = {0.3f, 0.0f, 0.0f};
-
 }
 
 void Stage01::Update() {

@@ -73,7 +73,8 @@ private: // メンバ変数
 
 	int rockNum_ = 0;
 
-
+	// ワールドトランスフォーム
+	WorldTransform worldTransform_;
 	ViewProjection viewProjection_;
 
 
