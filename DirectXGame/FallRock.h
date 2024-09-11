@@ -41,16 +41,16 @@ public:
 	// 移動関係
 	void Move();
 
-	// 衝突判定
+	// マップチップとの衝突判定
 	void Collision(CollisionMapInfo& info);
 
 	// setter
 	void SetMapChipField(MapChipField* mapChipField) { mapChipField_ = mapChipField; }
 
-	// getter
-	int32_t GetMaxBlockNum() { return maxBlockNum_; }
 
+	// 動いているかのgetter
 	bool GetIsMove() { return isMove_; }
+	// 動作終了しているかどうかのgetter
 	bool GetMoveFinish() { return moveFinish_; }
 
 	void SetMoveFinish(bool moveFinish) { moveFinish_ = moveFinish; } 
@@ -63,8 +63,6 @@ public:
 
 		Model* model_ = nullptr;
 
-		// ブロック数の上限
-	    int32_t maxBlockNum_ = 200;
 
 		// 1ブロックのサイズ
 	    // 幅

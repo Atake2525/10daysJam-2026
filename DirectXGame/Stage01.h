@@ -11,6 +11,7 @@
 #include "Player.h"
 #include "FallRock.h"
 #include "RockBlock.h"
+#include "MapChipCase.h"
 
 /// <summary>
 /// ゲームシーン
@@ -51,6 +52,7 @@ public: // メンバ関数
 
 
 	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
+	std::vector<std::vector<WorldTransform*>> worldTransformCaseBlocks_;
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -64,6 +66,8 @@ private: // メンバ変数
 
 	MapChipField* mapChipField_ = nullptr;
 	Model* blockModel_ = nullptr;
+
+	MapChipCase* mapChipCase_ = nullptr;
 
 	FallRock* fallRock_[200];
 	Model* modelFallRock_ = nullptr;
@@ -79,6 +83,7 @@ private: // メンバ変数
 
 
 	void GenerateBlocks();
+	void GenerateCaseBlocks();
 
 	/// <summary>
 	/// ゲームシーン用
