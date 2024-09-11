@@ -6,6 +6,8 @@
 #include <cassert>
 #include <MapChipField.h>
 
+
+
 void Player::Initialize(Model* model, ViewProjection* viewProjection, const Vector3 position) {
 	// NULLポインタチェック
 	assert(model);
