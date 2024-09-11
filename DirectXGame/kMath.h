@@ -26,8 +26,7 @@ Vector3& operator*=(Vector3& v, float s);
 const Vector3 operator*(const Vector3& v, float s);
 
 // ease In-Out
-float easeInOut(float t, float x1, float x2);
-
+float easeInOut(float x1, float x2, float t);
 // Lerp
 float Lerp(float x1, float x2, float t);
 

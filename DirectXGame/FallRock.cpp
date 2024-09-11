@@ -63,14 +63,14 @@ void FallRock::Collision(CollisionMapInfo& info) {
 	MapChipField::IndexSet indexSet;
 	// 左上点の判定
 	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionNew[kRightBottom]);
-	mapChipType = mapChipField_->GetMapChiptypeByIndex(indexSet.xIndex, indexSet.yIndex);
+	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
 	if (mapChipType == MapChipType::kBlock || mapChipType == MapChipType::kStone) {
 		info.isLand = true;
 		//isMove_ = false;
 	}
 	// 左下点の判定
 	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionNew[kLeftBottom]);
-	mapChipType = mapChipField_->GetMapChiptypeByIndex(indexSet.xIndex, indexSet.yIndex);
+	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
 	if (mapChipType == MapChipType::kBlock || mapChipType == MapChipType::kStone) {
 		info.isLand = true;
 		//isMove_ = false;
