@@ -31,10 +31,21 @@ public:
 	// マップチップ当たり判定系
 	void SetMapChipField(MapChipField* mapChipField) { mapChipField_ = mapChipField; }
 
+	// ゲームクリア
+	void isGameClear();
+
+	// ゲームオーバー
+	void isGameOver();
+
+	// ゲームクリアフラグのgetter
+	bool IsClear() const { return isClear_; }
+
+	// デスフラグのgetter
+	bool IsDead() const { return isDead_; }
 
 	private:
-	// マップチップによるフィールド
-	MapChipField* mapChipField_ = nullptr;
+	   // マップチップによるフィールド
+	    MapChipField* mapChipField_ = nullptr;
 		WorldTransform worldTransform_;
 	    ViewProjection* viewProjection_;
 
@@ -58,5 +69,10 @@ public:
 
 		// プレイヤーが地面についているかのフラグ(変更不可)
 	    bool onGround = true;
+
+		// ゲームクリアフラグ
+	    bool isClear_ = false;
+	    // デスフラグ
+	    bool isDead_ = false;
 
 };

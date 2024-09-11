@@ -55,3 +55,17 @@ void Player::Update() {
 }
 
 void Player::Draw() { model_->Draw(worldTransform_, *viewProjection_); }
+
+//ゲームクリア
+void Player::isGameClear() { 
+	isClear_ = true; 
+
+}
+
+// ゲームオーバー
+void Player::isGameOver() { 
+	isDead_ = true;
+
+}
+// ↑条件紐づけお願いします
+

@@ -32,9 +32,15 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();
 	viewProjection_.rotation_.x = 0.5f;
 	viewProjection_.translation_.y = 5.0f;
+
+	// ゲームプレイフェーズから開始
+	phase_ = Phase::kPlay;
 }
 
 void GameScene::Update() {
+
+	ChangePhase();
+	//プレイヤーのフェーズごとの処理は触っていません。
 
 	// 特定のキーを入力したら選択されているステージが変わる
 	if (Input::GetInstance()->TriggerKey(DIK_LEFT) && LeftTurnFlag == false && RightTurnFlag == false) {
@@ -154,4 +160,21 @@ void GameScene::Draw() {
 #pragma endregion
 }
 
-
+void GameScene::ChangePhase() {
+	switch (phase_) {
+	case Phase::kPlay:
+		if (player_->IsClear()) {
+			phase_ = Phase::kClear;
+		}
+		if (player_->IsDead()) {
+			phase_ = Phase::kDeath;
+		}
+		break;
+	case Phase::kClear:
+		finishedClear_ = true;
+		break;
+	case Phase::kDeath:
+		finishedDead_ = true;
+		break;
+	}
+}
