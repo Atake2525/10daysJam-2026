@@ -112,6 +112,7 @@
     <ClCompile Include="FallRock.cpp" />
     <ClCompile Include="kMath.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapChipCase.cpp" />
     <ClCompile Include="MapChipField.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RockBlock.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="FallRock.h" />
     <ClInclude Include="input\Input.h" />
     <ClInclude Include="kMath.h" />
+    <ClInclude Include="MapChipCase.h" />
     <ClInclude Include="MapChipField.h" />
     <ClInclude Include="math\Matrix4x4.h" />
     <ClInclude Include="math\Vector2.h" />

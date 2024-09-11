@@ -29,6 +29,13 @@ void FallRock::Move() {
 		if (Input::GetInstance()->PushKey(DIK_SPACE)) {
 			fallTimer_ += 0.1f;
 		}
+		// 右を入力で移動
+		if (Input::GetInstance()->TriggerKey(DIK_RIGHT) && mapChipField_->GetNumBlockHorizontal() - 1 > worldTransform_.translation_.x) {
+			worldTransform_.translation_.x += 1 * kBlockWidth;
+		}
+		if (Input::GetInstance()->TriggerKey(DIK_LEFT) && 0 < worldTransform_.translation_.x) {
+			worldTransform_.translation_.x -= 1 * kBlockWidth;
+		}
 	}
 	fallTimer_ += 1 / fallLimitTime_ / 60;
 	if (fallTimer_ > 1) {
@@ -40,13 +47,6 @@ void FallRock::Move() {
 			worldTransform_.translation_.y = 10;
 			isMove_ = true;
 		}
-	}
-	// 右を入力で移動
-	if (Input::GetInstance()->TriggerKey(DIK_RIGHT) && mapChipField_->GetNumBlockHorizontal() - 1 > worldTransform_.translation_.x) {
-		worldTransform_.translation_.x += 1 * kBlockWidth;
-	}
-	if (Input::GetInstance()->TriggerKey(DIK_LEFT) && 0 < worldTransform_.translation_.x) {
-		worldTransform_.translation_.x -= 1 * kBlockWidth;
 	}
 }
 
@@ -66,12 +66,14 @@ void FallRock::Collision(CollisionMapInfo& info) {
 	mapChipType = mapChipField_->GetMapChiptypeByIndex(indexSet.xIndex, indexSet.yIndex);
 	if (mapChipType == MapChipType::kBlock || mapChipType == MapChipType::kStone) {
 		info.isLand = true;
+		//isMove_ = false;
 	}
 	// 左下点の判定
 	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionNew[kLeftBottom]);
 	mapChipType = mapChipField_->GetMapChiptypeByIndex(indexSet.xIndex, indexSet.yIndex);
 	if (mapChipType == MapChipType::kBlock || mapChipType == MapChipType::kStone) {
 		info.isLand = true;
+		//isMove_ = false;
 		//mapChipField_->mapChipData_.data[indexSet.yIndex + 1][indexSet.xIndex] = MapChipType::kStone;
 	}
 }
