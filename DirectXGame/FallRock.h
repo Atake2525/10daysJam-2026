@@ -53,6 +53,7 @@ public:
 	bool GetIsMove() { return isMove_; }
 	bool GetMoveFinish() { return moveFinish_; }
 
+	void SetMoveFinish(bool moveFinish) { moveFinish_ = moveFinish; } 
 	Vector3 GetWrodlTransform() { return worldTransform_.translation_; }
 	private:
 		WorldTransform worldTransform_;

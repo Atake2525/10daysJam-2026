@@ -7,10 +7,10 @@ void FallRock::Initialize(Model* model, ViewProjection* viewProjection) {
 	model_ = model;
 	viewProjection_ = viewProjection;
 	worldTransform_.Initialize();
-	worldTransform_.translation_.x -= 10.0f;
-	worldTransform_.translation_.y -= 10.0f;
+	worldTransform_.translation_ = {-10.0f, -10.0f, -10.0f};
 	// ランダムシードを初期化
 	srand(static_cast<unsigned int>(time(NULL)));
+	moveFinish_ = false;
 }
 
 Vector3 FallRock::CornerPosition(const Vector3& center, Corner corner) {
@@ -35,6 +35,7 @@ void FallRock::Move() {
 		worldTransform_.translation_.y -= mapChipField_->kBlockHeight;
 		fallTimer_ = 0.0f;
 		if (isMove_ == false) {
+			worldTransform_.translation_.z = 0;
 			worldTransform_.translation_.x = float(rand() % mapChipField_->GetNumBlockHorizontal());
 			worldTransform_.translation_.y = 10;
 			isMove_ = true;

@@ -10,6 +10,7 @@
 #include "MapChipField.h"
 #include "Player.h"
 #include "FallRock.h"
+#include "RockBlock.h"
 
 /// <summary>
 /// ゲームシーン
@@ -66,6 +67,9 @@ private: // メンバ変数
 
 	FallRock* fallRock_[200];
 	Model* modelFallRock_ = nullptr;
+
+	RockBlock* rockBlock_[200];
+	Model* modelRockBlock_ = nullptr;
 
 	int rockNum_ = 0;
 
