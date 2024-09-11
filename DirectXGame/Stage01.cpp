@@ -43,6 +43,7 @@ Stage01::~Stage01() {
 	delete mapChipField_;
 	for (int i = 0; i < 200; i++) {
 		delete fallRock_[i];
+		delete rockBlock_[i];
 	}
 }
 
@@ -62,15 +63,23 @@ void Stage01::Initialize() {
 	player_->Initialize(modelPlayer_, &viewProjection_, {0, 0, 0});
 
 	modelFallRock_ = Model::CreateFromOBJ("soil");
+	modelRockBlock_ = Model::CreateFromOBJ("glassFloor");
+
 
 	for (int i = 0; i < 200; i++) {
 		fallRock_[i] = new FallRock;
 		fallRock_[i]->Initialize(modelFallRock_, &viewProjection_);
 		fallRock_[i]->SetMapChipField(mapChipField_);
+		rockBlock_[i] = new RockBlock;
+		rockBlock_[i]->Initialize(modelRockBlock_, &viewProjection_);
+		rockBlock_[i]->SetMapChipField(mapChipField_);
+		rockBlock_[i]->SetFallRock(fallRock_[i]);
 	}
 
 	viewProjection_.Initialize();
-	viewProjection_.translation_ = {4, 3, -20.0f};
+	//viewProjection_.translation_ = {4, 3, -20.0f};
+	viewProjection_.translation_ = {4.5f, 10.0f, -15.0f};
+	viewProjection_.rotation_ = {0.3f, 0.0f, 0.0f};
 
 }
 
@@ -88,13 +97,22 @@ void Stage01::Update() {
 		}
 	}
 	ImGui::Begin("camera");
-	ImGui::DragFloat3("camera", &viewProjection_.translation_.x, 0.1f);
+	ImGui::DragFloat3("Translation", &viewProjection_.translation_.x, 0.1f);
+	ImGui::DragFloat3("Rotation", &viewProjection_.rotation_.x, 0.1f);
 	ImGui::End();
 
 	player_->Update();
 	fallRock_[rockNum_]->Update();
+	rockBlock_[rockNum_]->Update();
 	if (fallRock_[rockNum_]->GetMoveFinish() == true) {
 		rockNum_++;
+	}
+	for (int i = 0; i < 200; i++) {
+		for (int j = 0; j < 200; j++) {
+			if (rockBlock_[i]->GetWrodlTransform().x == fallRock_[j]->GetWrodlTransform().x && rockBlock_[i]->GetWrodlTransform().y + 1 == fallRock_[j]->GetWrodlTransform().y) {
+				fallRock_[j]->SetMoveFinish(true);
+			}
+		}
 	}
 	viewProjection_.UpdateMatrix();
 }
@@ -135,6 +153,7 @@ void Stage01::Draw() {
 	}
 	for (int i = 0; i < 200; i++) {
 		fallRock_[i]->Draw();
+		rockBlock_[i]->Draw();
 	}
 	player_->Draw();
 
