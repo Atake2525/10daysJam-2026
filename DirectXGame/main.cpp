@@ -8,6 +8,7 @@
 #include "WinApp.h"
 #include "TitleScene.h"
 #include "Stage01.h"
+#include "ResultScene.h"
 
 enum class Scene {
 	kUnknown = 0,
@@ -15,6 +16,8 @@ enum class Scene {
 	kTitle,
 	kStageSelect,
 	kStage01,
+	kClear,
+	kDead,
 
 };
 
@@ -24,6 +27,8 @@ Scene scene = Scene::kUnknown;
 GameScene* gameScene = nullptr;
 TitleScene* titleScene = nullptr;
 Stage01* stage01 = nullptr;
+ClearScene* clearScene = nullptr;
+DeadScene* deadScene = nullptr;
 void ChangeScene();
 void UpdateScene();
 void DrawScene();
@@ -51,7 +56,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	ImGuiManager* imguiManager = ImGuiManager::GetInstance();
 	imguiManager->Initialize(win, dxCommon);
 
-	// 入力の初期化
+	//// 入力の初期化
 	input = Input::GetInstance();
 	input->Initialize();
 
@@ -122,6 +127,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	delete titleScene;
 	delete gameScene;
 	delete stage01;
+	delete clearScene;
+	delete deadScene;
 	// 3Dモデル解放
 	Model::StaticFinalize();
 	audio->Finalize();
@@ -162,6 +169,30 @@ switch (scene) {
 			}
 		}
 		break;
+	case Scene::kClear:
+		if (clearScene->IsFinishedClear()) {
+			// シーン変更
+		    scene = Scene::kTitle;
+			// 旧シーンの解放
+			delete clearScene;
+			clearScene = nullptr;
+			// 新シーンの生成と初期化
+			titleScene = new TitleScene;
+			titleScene->Initialize();
+		}
+		break;
+	case Scene::kDead:
+		if (deadScene->IsFinishedDead()) {
+			// シーン変更
+			scene = Scene::kDead;
+			// 旧シーンの解放
+			delete deadScene;
+			deadScene = nullptr;
+			// 新シーンの生成と初期化
+			titleScene = new TitleScene;
+			titleScene->Initialize();
+		}
+		break;
 	default:
 		break;
 	}
@@ -179,6 +210,12 @@ void UpdateScene() {
 	case Scene::kStage01:
 		stage01->Update();
 		break;
+	case Scene::kClear:
+		clearScene->Update();
+		break;
+		case Scene::kDead:
+		deadScene->Update();
+		break;
 	default:
 		break;
 	}
@@ -194,6 +231,12 @@ void DrawScene() {
 		break;
 	case Scene::kStage01:
 		stage01->Draw();
+		break;
+	case Scene::kClear:
+		clearScene->Draw();
+		break;
+	case Scene::kDead:
+		deadScene->Draw();
 		break;
 	default:
 		break;

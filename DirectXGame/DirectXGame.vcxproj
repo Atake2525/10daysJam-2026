@@ -110,6 +110,7 @@
     <ClCompile Include="base\DirectXCommon.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="FallRock.cpp" />
+    <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="Goal.cpp" />
     <ClCompile Include="kMath.cpp" />
     <ClCompile Include="main.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="base\TextureManager.h" />
     <ClInclude Include="base\WinApp.h" />
     <ClInclude Include="FallRock.h" />
+    <ClInclude Include="ResultScene.h" />
     <ClInclude Include="Goal.h" />
     <ClInclude Include="input\Input.h" />
     <ClInclude Include="kMath.h" />

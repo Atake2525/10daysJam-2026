@@ -1,4 +1,4 @@
-﻿#define NOMINMAX
+#define NOMINMAX
 #include "Player.h"
 #include "kMath.h"
 #include <DebugText.h>
@@ -427,4 +427,19 @@ Vector3 Player::CornerPosition(const Vector3& center, Corner corner) {
 
 	return center + offsetTable[static_cast<uint32_t>(corner)];
 }
+
+void Player::Draw() { model_->Draw(worldTransform_, *viewProjection_); }
+
+//ゲームクリア
+void Player::isGameClear() { 
+	isClear_ = true; 
+
+}
+
+// ゲームオーバー
+void Player::isGameOver() { 
+	isDead_ = true;
+
+}
+// ↑条件紐づけお願いします
 

@@ -7,6 +7,7 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "Player.h"
 #include "Stage01.h"
 
 /// <summary>
@@ -46,6 +47,12 @@ public: // メンバ関数
 	// ステージセレクトのgetter
 	int SelectStage() { return selectStage_; }
 
+	// ゲーム終了フラグのgetter
+	bool IsFinishedClear() const { return finishedClear_; }
+	bool IsFinishedOver() const { return finishedDead_; }
+
+	void ChangePhase();
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -53,6 +60,8 @@ private: // メンバ変数
 
 	WorldTransform worldTransform_;
 	ViewProjection viewProjection_;
+
+	Player* player_ = nullptr;
 
 	Model* Stage01Model_ = nullptr;
 
@@ -67,6 +76,19 @@ private: // メンバ変数
 
 	// 現在のステージの場所取得
 	Vector3 nowPosition = {0};
+
+	// ゲームクリアフラグ
+	bool finishedClear_ = false;
+	// ゲームオーバーフラグ
+	bool finishedDead_ = false;
+
+	enum class Phase {
+		kPlay,  // ゲームプレイ
+		kDeath, // デス
+		kClear, // クリア
+	};
+	// ゲームの現在のフェーズ(変数)
+	Phase phase_;
 
 	//----------
 	// ここから下は変更可能
