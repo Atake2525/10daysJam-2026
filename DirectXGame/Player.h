@@ -10,6 +10,7 @@
 #include <Math.h>
 
 class MapChipField;
+class FallRock;
 
 class Player {
 public:
@@ -55,6 +56,8 @@ public:
 	Vector3 GetWorldPosition();
 	// AABBを取得
 	AABB GetAABB();
+	// 衝突応答
+	void OnCollision(const FallRock* fallRock);
 
 
 private:
@@ -91,6 +94,7 @@ private:
 
 	// プレイヤーが地面についているかのフラグ(変更不可)
 	bool onGround = true;
+
 	//向き
 	LRDirection lrDirection_ = LRDirection::kRight;
 
@@ -126,5 +130,6 @@ private:
 
 	Vector3 CornerPosition(const Vector3& center, Corner corner);
 
+	Vector3 old;
 
 };

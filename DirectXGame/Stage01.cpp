@@ -66,7 +66,7 @@ void Stage01::Initialize() {
 	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(5, 19);
 	player_ = new Player;
 	modelPlayer_ = Model::CreateFromOBJ("player");
-	player_->Initialize(modelPlayer_, &viewProjection_, {0, 0, 0});
+	player_->Initialize(modelPlayer_, &viewProjection_, {playerPosition});
 	player_->SetMapChipField(mapChipField_);
 
 	player_->Update();
@@ -85,6 +85,10 @@ void Stage01::Initialize() {
 }
 
 void Stage01::Update() {
+
+	// 全ての当たり判定を行う
+	CheckAllCollisions();
+
 	// ブロックの更新
 	for (std::vector<WorldTransform*>& worldtransformBlockLine : worldTransformBlocks_) {
 		for (WorldTransform* worldTransformBlock : worldtransformBlockLine) {
@@ -101,11 +105,11 @@ void Stage01::Update() {
 	ImGui::DragFloat3("camera", &viewProjection_.translation_.x, 0.1f);
 	ImGui::End();
 
-	player_->Update();
 	fallRock_[rockNum_]->Update();
 	if (fallRock_[rockNum_]->GetMoveFinish() == true) {
 		rockNum_++;
 	}
+	player_->Update();
 	viewProjection_.UpdateMatrix();
 }
 
@@ -164,4 +168,26 @@ void Stage01::Draw() {
 	Sprite::PostDraw();
 
 #pragma endregion
+}
+
+void Stage01::CheckAllCollisions() {
+	// 判定対象1と2の座標
+	AABB aabb1, aabb2;
+
+	// 自キャラの座標
+	aabb1 = player_->GetAABB();
+
+	// 自キャラと敵弾すべての当たり判定
+	for (FallRock* fallRock : fallRock_) {
+		// 敵弾の座標
+		aabb2 = fallRock->GetAABB();
+
+		// AABB同士の交差判定
+		if (IsCollision(aabb1, aabb2)) {
+			// 自キャラの衝突時コールバックを呼び起こす
+			player_->OnCollision(fallRock);
+			// 敵弾の衝突時コールバックを呼び起こす
+			fallRock->OnCollision(player_);
+		}
+	}
 }

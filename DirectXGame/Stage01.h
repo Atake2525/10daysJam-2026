@@ -10,6 +10,7 @@
 #include "MapChipField.h"
 #include "Player.h"
 #include "FallRock.h"
+#include <vector>
 
 /// <summary>
 /// ゲームシーン
@@ -42,12 +43,16 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+	
+	void CheckAllCollisions();
+
 	// シーン切り替えのgetter
 	bool IsFinihed() const { return finished_; }
 
 	// ステージgetter
 	int GetStage() const { return 1; }
 
+	void GenerateBlocks();
 
 	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
 
@@ -73,8 +78,6 @@ private: // メンバ変数
 	WorldTransform worldTransform_;
 	ViewProjection viewProjection_;
 
-
-	void GenerateBlocks();
 
 	/// <summary>
 	/// ゲームシーン用

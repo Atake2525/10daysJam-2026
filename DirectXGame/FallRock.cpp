@@ -3,7 +3,7 @@
 #include "imgui.h"
 #include "kMath.h"
 
-void FallRock::Initialize(Model* model, ViewProjection* viewProjection) { 
+void FallRock::Initialize(Model* model, ViewProjection* viewProjection) {
 	model_ = model;
 	viewProjection_ = viewProjection;
 	worldTransform_.Initialize();
@@ -71,11 +71,33 @@ void FallRock::Collision(CollisionMapInfo& info) {
 	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
 	if (mapChipType == MapChipType::kBlock || mapChipType == MapChipType::kStone) {
 		info.isLand = true;
-		//mapChipField_->mapChipData_.data[indexSet.yIndex + 1][indexSet.xIndex] = MapChipType::kStone;
+		// mapChipField_->mapChipData_.data[indexSet.yIndex + 1][indexSet.xIndex] = MapChipType::kStone;
 	}
 }
 
-void FallRock::Update() { 
+void FallRock::OnCollision(const Player* player) { (void)player; }
+
+Vector3 FallRock::GetworldPosition() {
+	Vector3 worldPos;
+	// ワールド行列の平行移動成分を取得(ワールド座標)
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
+	return worldPos;
+}
+
+AABB FallRock::GetAABB() {
+	Vector3 worldPos = GetworldPosition();
+
+	AABB aabb;
+
+	aabb.min = {worldPos.x - kBlockWidth / 2.0f, worldPos.y - kBlockHeight / 2.0f, worldPos.z - kBlockWidth / 2.0f};
+	aabb.max = {worldPos.x + kBlockWidth / 2.0f, worldPos.y + kBlockHeight / 2.0f, worldPos.z + kBlockWidth / 2.0f};
+
+	return aabb;
+}
+
+void FallRock::Update() {
 	// 衝突情報を初期化
 	CollisionMapInfo collisionMapInfo;
 	// 移動量に速度の値をコピー
@@ -100,4 +122,3 @@ void FallRock::Update() {
 }
 
 void FallRock::Draw() { model_->Draw(worldTransform_, *viewProjection_); }
-

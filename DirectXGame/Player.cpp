@@ -2,11 +2,9 @@
 #include "Player.h"
 #include "kMath.h"
 #include <DebugText.h>
+#include <MapChipField.h>
 #include <algorithm>
 #include <cassert>
-#include <MapChipField.h>
-
-
 
 void Player::Initialize(Model* model, ViewProjection* viewProjection, const Vector3 position) {
 	// NULLポインタチェック
@@ -41,6 +39,7 @@ void Player::Update() {
 
 	worldTransform_.UpdateMatrix();
 }
+
 void Player::Draw() { model_->Draw(worldTransform_, *viewProjection_); }
 
 Vector3 Player::GetWorldPosition() {
@@ -63,6 +62,22 @@ AABB Player::GetAABB() {
 	aabb.max = {worldPos.x + kWidth / 2.0f, worldPos.y + kHeight / 2.0f, worldPos.z + kWidth / 2.0f};
 
 	return aabb;
+}
+
+void Player::OnCollision(const FallRock* fallRock) {
+	(void)fallRock;
+
+	// 左右の当たり判定仮処理
+	if (Input::GetInstance()->PushKey(DIK_D)) {
+		velocity_.x = -velocity_.x;
+	} else if (Input::GetInstance()->PushKey(DIK_A)) {
+		velocity_.x = -velocity_.x;
+	} // else if(Input::GetInstance()->PushKey(DIK_W)){velocity_.y = -velocity_.y;}
+
+	// ブロック上の当たり判定
+	worldTransform_.translation_ = old;
+
+	// 床の当たり判定
 }
 
 // プレイヤー移動系
@@ -328,6 +343,7 @@ void Player::ChecMapCollisionLeft(CollisionMapInfo& info) {
 }
 
 void Player::CheckMapMove(const CollisionMapInfo& info) {
+	old = worldTransform_.translation_;
 	// 移動
 	worldTransform_.translation_ += info.move;
 }
@@ -422,4 +438,3 @@ Vector3 Player::CornerPosition(const Vector3& center, Corner corner) {
 
 	return center + offsetTable[static_cast<uint32_t>(corner)];
 }
-

@@ -1,11 +1,15 @@
 ﻿#pragma once
-#include "WorldTransform.h"
-#include "ViewProjection.h"
-#include "Model.h"
 #include "Input.h"
+#include "Model.h"
+#include "ViewProjection.h"
+#include "WorldTransform.h"
+#include <AABB.h>
+#include <Vector3.h>
+#include <algorithm>
+#include <numbers>
 
 class MapChipField;
-
+class Player;
 class FallRock {
 public:
 	// 角
@@ -24,7 +28,7 @@ public:
 		Vector3 movePoint;
 	};
 	Vector3 CornerPosition(const Vector3& center, Corner corner);
-	
+
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -44,6 +48,11 @@ public:
 	// 衝突判定
 	void Collision(CollisionMapInfo& info);
 
+	// 衝突判定プレイヤーと
+	void OnCollision(const Player* player);
+	Vector3 GetworldPosition();
+	AABB GetAABB();
+
 	// setter
 	void SetMapChipField(MapChipField* mapChipField) { mapChipField_ = mapChipField; }
 
@@ -54,29 +63,30 @@ public:
 	bool GetMoveFinish() { return moveFinish_; }
 
 	Vector3 GetWrodlTransform() { return worldTransform_.translation_; }
-	private:
-		WorldTransform worldTransform_;
-	    ViewProjection* viewProjection_ = nullptr;
 
-		MapChipField* mapChipField_ = nullptr;
+private:
+	WorldTransform worldTransform_;
+	ViewProjection* viewProjection_ = nullptr;
 
-		Model* model_ = nullptr;
+	MapChipField* mapChipField_ = nullptr;
 
-		// ブロック数の上限
-	    int32_t maxBlockNum_ = 200;
+	Model* model_ = nullptr;
 
-		// 1ブロックのサイズ
-	    // 幅
-	    static inline const float kBlockWidth = 1.0f;
-	    // 高さ
-	    static inline const float kBlockHeight = 1.0f;
+	// ブロック数の上限
+	int32_t maxBlockNum_ = 200;
 
-	    // ブロック落下のタイマー(変更不可)
-	    float fallTimer_ = 0.0f;
-	    // ブロックが落下するまでのタイム(変更可)
-	    float fallLimitTime_ = 1.0f;
-	    // 動かしたかのフラグ
-	    bool moveFinish_ = false;
-		// 動いているかのフラグ
-	    bool isMove_ = false;
+	// 1ブロックのサイズ
+	// 幅
+	static inline const float kBlockWidth = 1.0f;
+	// 高さ
+	static inline const float kBlockHeight = 1.0f;
+
+	// ブロック落下のタイマー(変更不可)
+	float fallTimer_ = 0.0f;
+	// ブロックが落下するまでのタイム(変更可)
+	float fallLimitTime_ = 1.0f;
+	// 動かしたかのフラグ
+	bool moveFinish_ = false;
+	// 動いているかのフラグ
+	bool isMove_ = false;
 };
