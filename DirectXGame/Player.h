@@ -95,6 +95,9 @@ private:
 	// プレイヤーが地面についているかのフラグ(変更不可)
 	bool onGround = true;
 
+	bool jump = false;
+	//bool touchBlock = false;
+
 	//向き
 	LRDirection lrDirection_ = LRDirection::kRight;
 

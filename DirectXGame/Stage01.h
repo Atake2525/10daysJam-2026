@@ -48,6 +48,7 @@ public: // メンバ関数
 
 	// シーン切り替えのgetter
 	bool IsFinihed() const { return finished_; }
+	//bool touchBlock = false;
 
 	// ステージgetter
 	int GetStage() const { return 1; }

@@ -66,78 +66,82 @@ AABB Player::GetAABB() {
 
 void Player::OnCollision(const FallRock* fallRock) {
 	(void)fallRock;
-
+	
+	jump = false;
 	// 左右の当たり判定仮処理
 	if (Input::GetInstance()->PushKey(DIK_D)) {
 		velocity_.x = -velocity_.x;
 	} else if (Input::GetInstance()->PushKey(DIK_A)) {
 		velocity_.x = -velocity_.x;
-	} // else if(Input::GetInstance()->PushKey(DIK_W)){velocity_.y = -velocity_.y;}
+	} else {
+		velocity_.y = 0;
+	}
 
-	// ブロック上の当たり判定
+	//  ブロック上の当たり判定
 	worldTransform_.translation_ = old;
 
 	// 床の当たり判定
 }
 
 // プレイヤー移動系
+// プレイヤー移動系
 void Player::Move() {
 	// 移動入力
-	if (onGround) {
-		// 左右移動操作
-		if (Input::GetInstance()->PushKey(DIK_D) || Input::GetInstance()->PushKey(DIK_A)) {
+	// 左右移動操作
+	if (Input::GetInstance()->PushKey(DIK_D) || Input::GetInstance()->PushKey(DIK_A)) {
 
-			// 左右加速
-			Vector3 acceleration = {};
-			if (Input::GetInstance()->PushKey(DIK_D)) {
-				// 左移動中の右入力
-				if (velocity_.x < 0.0f) {
-					// 速度と逆方向に入力中は急ブレーキ
-					velocity_.x *= (1.0f - attenuation_);
-				}
-
-				acceleration.x += attenuation_ / 60.0f;
-
-				if (lrDirection_ != LRDirection::kRight) {
-					lrDirection_ = LRDirection::kRight;
-					// 旋回開始時の角度
-					turnFirstRotationY_ = worldTransform_.rotation_.y;
-					// 旋回タイマー
-					turnTimer_ = kTimeTurn;
-				}
-			} else if (Input::GetInstance()->PushKey(DIK_A)) {
-				// 右移動中の左入力
-				if (velocity_.x > 0.0f) {
-					// 速度と逆方向に入力中は急ブレーキ
-					velocity_.x *= (1.0f - attenuation_);
-				}
-
-				acceleration.x -= Acceleration_ / 60.0f;
-
-				if (lrDirection_ != LRDirection::kLeft) {
-					lrDirection_ = LRDirection::kLeft;
-					// 旋回開始時の角度
-					turnFirstRotationY_ = worldTransform_.rotation_.y;
-					// 旋回タイマー
-					turnTimer_ = kTimeTurn;
-				}
+		// 左右加速
+		Vector3 acceleration = {};
+		if (Input::GetInstance()->PushKey(DIK_D)) {
+			// 左移動中の右入力
+			if (velocity_.x < 0.0f) {
+				// 速度と逆方向に入力中は急ブレーキ
+				velocity_.x *= (1.0f - attenuation_);
 			}
-			// 加速/減速
-			velocity_ += acceleration;
-			// 最大速度制限
-			velocity_.x = std::clamp(velocity_.x, -limitRunSpeed_, limitRunSpeed_);
-		} else {
-			// 非入力時は移動減衰をかける
-			velocity_.x *= (1.0f - attenuation_);
+
+			acceleration.x += attenuation_ / 60.0f;
+
+			if (lrDirection_ != LRDirection::kRight) {
+				lrDirection_ = LRDirection::kRight;
+				// 旋回開始時の角度
+				turnFirstRotationY_ = worldTransform_.rotation_.y;
+				// 旋回タイマー
+				turnTimer_ = kTimeTurn;
+			}
+		} else if (Input::GetInstance()->PushKey(DIK_A)) {
+			// 右移動中の左入力
+			if (velocity_.x > 0.0f) {
+				// 速度と逆方向に入力中は急ブレーキ
+				velocity_.x *= (1.0f - attenuation_);
+			}
+
+			acceleration.x -= Acceleration_ / 60.0f;
+
+			if (lrDirection_ != LRDirection::kLeft) {
+				lrDirection_ = LRDirection::kLeft;
+				// 旋回開始時の角度
+				turnFirstRotationY_ = worldTransform_.rotation_.y;
+				// 旋回タイマー
+				turnTimer_ = kTimeTurn;
+			}
 		}
-		if (std::abs(velocity_.x) <= 0.0001f) {
-			velocity_.x = 0.0f;
-		}
-		if (Input::GetInstance()->PushKey(DIK_W)) {
-			// ジャンプ初速
-			velocity_ += Vector3(0, JumpAcceleration_ / 60.0f, 0);
-		}
+		// 加速/減速
+		velocity_ += acceleration;
+		// 最大速度制限
+		velocity_.x = std::clamp(velocity_.x, -limitRunSpeed_, limitRunSpeed_);
 	} else {
+		// 非入力時は移動減衰をかける
+		velocity_.x *= (1.0f - attenuation_);
+	}
+	if (std::abs(velocity_.x) <= 0.0001f) {
+		velocity_.x = 0.0f;
+	}
+	if (Input::GetInstance()->TriggerKey(DIK_W) && jump == false) {
+		// ジャンプ初速
+		jump = true;
+		velocity_ += Vector3(0, JumpAcceleration_ / 60.0f, 0);
+	}
+	if (onGround == false) {
 		// 落下速度
 		velocity_ += Vector3(0, -gravityAcceleration_ / 60.0f, 0);
 		// 落下速度制限
@@ -245,6 +249,7 @@ void Player::ChecMapCollisionDown(CollisionMapInfo& info) {
 			MapChipField::Rect rect = mapChipField_->GetRectByIndex(indexSet.xIndex, indexSet.yIndex);
 			info.move.y = std::min(0.0f, rect.top - worldTransform_.translation_.y + (kHeight / 2.0f + kBlank));
 			info.landing = true;
+			jump = false;
 		}
 	}
 }
