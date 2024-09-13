@@ -6,6 +6,7 @@ enum class MapChipType {
 	kBlank,       // 空白
 	kBlock,       // ブロック
 	kStone,        // 石
+	kGoal,        //ゴール
 	//kSoil,        // 土
 	//kWorldBorder, // ワールドボーダー
 	              // kSky, // 天井
