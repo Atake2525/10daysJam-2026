@@ -4,6 +4,10 @@
 #include "Model.h"
 #include "Input.h"
 
+/// <summary>
+/// 落ちてくるブロックの計算などをするクラス(変更非推奨)
+/// </summary>
+
 class MapChipField;
 
 class FallRock {
@@ -47,7 +51,6 @@ public:
 	// setter
 	void SetMapChipField(MapChipField* mapChipField) { mapChipField_ = mapChipField; }
 
-
 	// 動いているかのgetter
 	bool GetIsMove() { return isMove_; }
 	// 動作終了しているかどうかのgetter
@@ -78,4 +81,5 @@ public:
 	    bool moveFinish_ = false;
 		// 動いているかのフラグ
 	    bool isMove_ = false;
+
 };

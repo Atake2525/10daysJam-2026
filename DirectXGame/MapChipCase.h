@@ -75,6 +75,10 @@ public:
 
 	float GetMapCase() { return mapCase; }
 
+	bool mapChipLoaded_ = false;
+
 	void Update();
+
+	void Initialize();
 
 };

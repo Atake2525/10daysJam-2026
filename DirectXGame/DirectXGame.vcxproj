@@ -117,6 +117,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RockBlock.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
+    <ClCompile Include="Searcher.cpp" />
     <ClCompile Include="Stage01.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="WorldTransformEx.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="RockBlock.h" />
     <ClInclude Include="scene\GameScene.h" />
+    <ClInclude Include="Searcher.h" />
     <ClInclude Include="Stage01.h" />
     <ClInclude Include="TitleScene.h" />
   </ItemGroup>

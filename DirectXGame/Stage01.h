@@ -12,6 +12,7 @@
 #include "FallRock.h"
 #include "RockBlock.h"
 #include "MapChipCase.h"
+#include "Searcher.h"
 
 /// <summary>
 /// ゲームシーン
@@ -74,6 +75,26 @@ private: // メンバ変数
 
 	RockBlock* rockBlock_[200];
 	Model* modelRockBlock_ = nullptr;
+
+	Searcher* searcher_ = nullptr;
+	// 縦の検索場所
+	float numHeightSearch_ = 0;
+	// 横の検索場所
+	float numWidthSearch_ = 0;
+	float searchBlockNums_[4][4] = {0};
+	float searchCaseNums_[4][4] = {0};
+	void ResetSearch();
+	// 最高地点
+	float maxSearchPosition_ = 0;
+	// 見本ブロックの数(変更不可)
+	int searchCaseNum_ = 0;
+	// 岩ブロックの数を検索(変更不可)
+	int searchBlocks_ = 0;
+	// 照合成功かのフラグ(変更不可)
+	bool isEqual_ = false;
+
+
+	Model* debug = nullptr;
 
 	int rockNum_ = 0;
 
