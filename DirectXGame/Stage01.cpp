@@ -1,9 +1,8 @@
 ﻿#include "Stage01.h"
 #include "TextureManager.h"
+#include "imgui.h"
 #include "kMath.h"
 #include <cassert>
-#include "imgui.h"
-
 
 void Stage01::GenerateBlocks() {
 	// 要素数
@@ -20,11 +19,35 @@ void Stage01::GenerateBlocks() {
 	// ブロックの生成
 	for (uint32_t i = 0; i < kNumBlockVirtical; ++i) {
 		for (uint32_t j = 0; j < kNumBlockHorizontal; ++j) {
-			if (mapChipField_->GetMapChiptypeByIndex(j, i) == MapChipType::kBlock) {
+			if (mapChipField_->GetMapChipTypeByIndex(j, i) == MapChipType::kBlock) {
 				WorldTransform* worldTransform = new WorldTransform();
 				worldTransform->Initialize();
 				worldTransformBlocks_[i][j] = worldTransform;
 				worldTransformBlocks_[i][j]->translation_ = mapChipField_->GetMapChipPositionByIndex(j, i);
+			}
+		}
+	}
+}
+
+void Stage01::GenerateCaseBlocks() {
+	// 要素数
+	const uint32_t kNumBlockVirtical = mapChipCase_->GetNumBlockVirtical();
+	const uint32_t kNumBlockHorizontal = mapChipCase_->GetNumBlockHorizontal();
+
+	// 列数を設定(縦方向ブロック数)
+	worldTransformCaseBlocks_.resize(kNumBlockVirtical);
+	for (uint32_t i = 0; i < kNumBlockVirtical; i++) {
+		// 1列の要素数を設定(横方向ブロック数)
+		worldTransformCaseBlocks_[i].resize(kNumBlockHorizontal);
+	}
+	// ブロックの生成
+	for (uint32_t i = 0; i < kNumBlockVirtical; ++i) {
+		for (uint32_t j = 0; j < kNumBlockHorizontal; ++j) {
+			if (mapChipCase_->GetMapChipTypeByIndex(j, i) == MapChipCaseType::kRock) {
+				WorldTransform* worldTransform = new WorldTransform();
+				worldTransform->Initialize();
+				worldTransformCaseBlocks_[i][j] = worldTransform;
+				worldTransformCaseBlocks_[i][j]->translation_ = mapChipCase_->GetMapChipPositionByIndex(j + 14, i - 6);
 			}
 		}
 	}
@@ -38,39 +61,80 @@ Stage01::~Stage01() {
 			delete worldTransformBlock;
 		}
 	}
+	for (std::vector<WorldTransform*>& worldTransformCaseBlockLine : worldTransformCaseBlocks_) {
+		for (WorldTransform* worldTransformCaseBlock : worldTransformCaseBlockLine) {
+			delete worldTransformCaseBlock;
+		}
+	}
 	worldTransformBlocks_.clear();
 	delete player_;
 	delete mapChipField_;
 	for (int i = 0; i < 200; i++) {
 		delete fallRock_[i];
+		delete rockBlock_[i];
 	}
+	delete goal_;
+	delete modelGoal_;
+
 }
 
 void Stage01::Initialize() {
+	// ランダムシードを初期化
+	srand(static_cast<unsigned int>(time(NULL)));
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
+	// ワールドトランスフォームの初期化
+	worldTransform_.Initialize();
+	// ビュープロジェクションの初期化
+	viewProjection_.Initialize();
+
 	mapChipField_ = new MapChipField;
 	mapChipField_->LoadMapChipCsv("Resources/Stage01.csv");
 	blockModel_ = Model::CreateFromOBJ("glassFloor");
-	GenerateBlocks();
 
+	GenerateBlocks();
+	mapChipCase_ = new MapChipCase;
+	mapChipCase_->LoadMapChipCsv("Resources/case00.csv");
+	GenerateCaseBlocks();
+
+	// 座標をマップチップ番号で指定
+	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(5, 19);
 	player_ = new Player;
 	modelPlayer_ = Model::CreateFromOBJ("player");
 	player_->Initialize(modelPlayer_, &viewProjection_, {0, 0, 0});
+	player_->SetMapChipField(mapChipField_);
+
+	player_->Update();
+	Vector3 position = player_->GetWorldPosition();
 
 	modelFallRock_ = Model::CreateFromOBJ("soil");
+	modelRockBlock_ = Model::CreateFromOBJ("glassFloor");
+
 
 	for (int i = 0; i < 200; i++) {
 		fallRock_[i] = new FallRock;
 		fallRock_[i]->Initialize(modelFallRock_, &viewProjection_);
 		fallRock_[i]->SetMapChipField(mapChipField_);
+		rockBlock_[i] = new RockBlock;
+		rockBlock_[i]->Initialize(modelRockBlock_, &viewProjection_);
+		rockBlock_[i]->SetMapChipField(mapChipField_);
+		rockBlock_[i]->SetFallRock(fallRock_[i]);
 	}
+
+    goal_ = new Goal;
+	Vector3 goalPosition = mapChipField_->GetMapChipPositionByIndex(3, 15);
+	modelGoal_ = Model::CreateFromOBJ("goal");
+	goal_->Initialize(modelGoal_, &viewProjection_, goalPosition);
+	goalies_.push_back(goal_);
+
 
 	viewProjection_.Initialize();
 	viewProjection_.translation_ = {4, 3, -20.0f};
+	//viewProjection_.translation_ = {4.5f, 10.0f, -15.0f};
+	//viewProjection_.rotation_ = {0.3f, 0.0f, 0.0f};
 
 }
 
@@ -87,15 +151,65 @@ void Stage01::Update() {
 			worldTransformBlock->UpdateMatrix();
 		}
 	}
+	mapChipCase_->Update();
+	if (mapChipCase_->GetMapCase() == 1) {
+		mapChipCase_->LoadMapChipCsv("Resources/case01.csv");
+		GenerateCaseBlocks();
+	} else if (mapChipCase_->GetMapCase() == 2) {
+		mapChipCase_->LoadMapChipCsv("Resources/case02.csv");
+		GenerateCaseBlocks();
+	} else if (mapChipCase_->GetMapCase() == 3) {
+		mapChipCase_->LoadMapChipCsv("Resources/case03.csv");
+		GenerateCaseBlocks();
+	}
+	for (std::vector<WorldTransform*>& worldTransformCaseBlockLine : worldTransformCaseBlocks_) {
+		for (WorldTransform* worldTransformCaseBlock : worldTransformCaseBlockLine) {
+			if (!worldTransformCaseBlock)
+				continue;
+				// アフィン変換行列の作成
+				worldTransformCaseBlock->matWorld_ = MakeAffineMatrix(worldTransformCaseBlock->scale_, worldTransformCaseBlock->rotation_, worldTransformCaseBlock->translation_);
+				// 定数バッファに転送する
+			    //worldTransformCaseBlock->translation_ = {10.0f, 10.0f, 0.0f};
+				worldTransformCaseBlock->TransferMatrix();
+				worldTransformCaseBlock->UpdateMatrix();
+		}
+	}
 	ImGui::Begin("camera");
-	ImGui::DragFloat3("camera", &viewProjection_.translation_.x, 0.1f);
+	ImGui::DragFloat3("Translation", &viewProjection_.translation_.x, 0.1f);
+	ImGui::DragFloat3("Rotation", &viewProjection_.rotation_.x, 0.1f);
 	ImGui::End();
 
 	player_->Update();
 	fallRock_[rockNum_]->Update();
+	rockBlock_[rockNum_]->Update();
 	if (fallRock_[rockNum_]->GetMoveFinish() == true) {
 		rockNum_++;
 	}
+	// ブロックの重なりの解消
+	// ブロックが積み重なるようにする
+	for (int i = 0; i < 200; i++) {
+		for (int j = 0; j < 200; j++) {
+			if (rockBlock_[i]->GetWrodlTransform().x == fallRock_[j]->GetWrodlTransform().x && rockBlock_[i]->GetWrodlTransform().y + 1 == fallRock_[j]->GetWrodlTransform().y) {
+				fallRock_[j]->SetMoveFinish(true);
+			}
+			// 思った動作をしないためコメントアウト
+			/*if (Input::GetInstance()->TriggerKey(DIK_RIGHT)) {
+				if (rockBlock_[i]->GetWrodlTransform().y == fallRock_[j]->GetWrodlTransform().y && rockBlock_[i]->GetWrodlTransform().x + 1 == fallRock_[j]->GetWrodlTransform().x) {
+					fallRock_[j]->SetMoveFinish(true);
+				}
+			} else if (Input::GetInstance()->TriggerKey(DIK_LEFT)) {
+				if (rockBlock_[i]->GetWrodlTransform().y == fallRock_[j]->GetWrodlTransform().y && rockBlock_[i]->GetWrodlTransform().x - 1 == fallRock_[j]->GetWrodlTransform().x) {
+					fallRock_[j]->SetMoveFinish(true);
+				}
+			}*/
+		}
+	}
+
+	goal_->Update();
+
+	// 全ての当たり判定を行う
+	CheckAllCollisions();
+
 	viewProjection_.UpdateMatrix();
 }
 
@@ -133,10 +247,21 @@ void Stage01::Draw() {
 			blockModel_->Draw(*worldTransformBlock, viewProjection_);
 		}
 	}
+	for (std::vector<WorldTransform*>& worldtransformCaseBlockLine : worldTransformCaseBlocks_) {
+		for (WorldTransform* worldTransformCaseBlock : worldtransformCaseBlockLine) {
+			if (!worldTransformCaseBlock)
+				continue;
+			blockModel_->Draw(*worldTransformCaseBlock, viewProjection_);
+		}
+	}
+
 	for (int i = 0; i < 200; i++) {
 		fallRock_[i]->Draw();
+		//rockBlock_[i]->Draw();
 	}
 	player_->Draw();
+
+	goal_->Draw();
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -153,5 +278,21 @@ void Stage01::Draw() {
 	// スプライト描画後処理
 	Sprite::PostDraw();
 
+#pragma endregion
+}
+
+void Stage01::CheckAllCollisions() {
+    #pragma region 
+	{ 
+		AABB aabb1, aabb2;
+		aabb1 = player_->GetAABB();
+		for (Goal* goal : goalies_) {
+			aabb2 = goal->GetAABB();
+			if (IsCollision(aabb1, aabb2)) {
+				player_->OnCollision(goal);
+				goal_->OnCollision(player_);
+			}
+		}
+	}
 #pragma endregion
 }

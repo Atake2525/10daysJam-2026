@@ -7,10 +7,10 @@ void FallRock::Initialize(Model* model, ViewProjection* viewProjection) {
 	model_ = model;
 	viewProjection_ = viewProjection;
 	worldTransform_.Initialize();
-	worldTransform_.translation_.x -= 10.0f;
-	worldTransform_.translation_.y -= 10.0f;
+	worldTransform_.translation_ = {-10.0f, -10.0f, -10.0f};
 	// ランダムシードを初期化
 	srand(static_cast<unsigned int>(time(NULL)));
+	moveFinish_ = false;
 }
 
 Vector3 FallRock::CornerPosition(const Vector3& center, Corner corner) {
@@ -29,23 +29,24 @@ void FallRock::Move() {
 		if (Input::GetInstance()->PushKey(DIK_SPACE)) {
 			fallTimer_ += 0.1f;
 		}
+		// 右を入力で移動
+		if (Input::GetInstance()->TriggerKey(DIK_RIGHT) && mapChipField_->GetNumBlockHorizontal() - 1 > worldTransform_.translation_.x) {
+			worldTransform_.translation_.x += 1 * kBlockWidth;
+		}
+		if (Input::GetInstance()->TriggerKey(DIK_LEFT) && 0 < worldTransform_.translation_.x) {
+			worldTransform_.translation_.x -= 1 * kBlockWidth;
+		}
 	}
 	fallTimer_ += 1 / fallLimitTime_ / 60;
 	if (fallTimer_ > 1) {
 		worldTransform_.translation_.y -= mapChipField_->kBlockHeight;
 		fallTimer_ = 0.0f;
 		if (isMove_ == false) {
+			worldTransform_.translation_.z = 0;
 			worldTransform_.translation_.x = float(rand() % mapChipField_->GetNumBlockHorizontal());
 			worldTransform_.translation_.y = 10;
 			isMove_ = true;
 		}
-	}
-	// 右を入力で移動
-	if (Input::GetInstance()->TriggerKey(DIK_RIGHT) && mapChipField_->GetNumBlockHorizontal() - 1 > worldTransform_.translation_.x) {
-		worldTransform_.translation_.x += 1 * kBlockWidth;
-	}
-	if (Input::GetInstance()->TriggerKey(DIK_LEFT) && 0 < worldTransform_.translation_.x) {
-		worldTransform_.translation_.x -= 1 * kBlockWidth;
 	}
 }
 
@@ -62,15 +63,17 @@ void FallRock::Collision(CollisionMapInfo& info) {
 	MapChipField::IndexSet indexSet;
 	// 左上点の判定
 	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionNew[kRightBottom]);
-	mapChipType = mapChipField_->GetMapChiptypeByIndex(indexSet.xIndex, indexSet.yIndex);
+	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
 	if (mapChipType == MapChipType::kBlock || mapChipType == MapChipType::kStone) {
 		info.isLand = true;
+		//isMove_ = false;
 	}
 	// 左下点の判定
 	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionNew[kLeftBottom]);
-	mapChipType = mapChipField_->GetMapChiptypeByIndex(indexSet.xIndex, indexSet.yIndex);
+	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
 	if (mapChipType == MapChipType::kBlock || mapChipType == MapChipType::kStone) {
 		info.isLand = true;
+		//isMove_ = false;
 		//mapChipField_->mapChipData_.data[indexSet.yIndex + 1][indexSet.xIndex] = MapChipType::kStone;
 	}
 }

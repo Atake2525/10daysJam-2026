@@ -2,18 +2,13 @@
 #include "Model.h"
 #include "WorldTransform.h"
 
-enum class MapChipType {
-	kBlank,       // 空白
-	kBlock,       // ブロック
-	kStone,        // 石
-	kGoal,        //ゴール
-	//kSoil,        // 土
-	//kWorldBorder, // ワールドボーダー
-	              // kSky, // 天井
+enum class MapChipCaseType {
+	kAir, // 空白
+	kRock, // ブロック
 };
 
-struct MapChipData {
-	std::vector<std::vector<MapChipType>> data;
+struct MapChipCaseData {
+	std::vector<std::vector<MapChipCaseType>> data;
 };
 
 // std::unordered_map<std::string, MapChipType> mapChipTable = {
@@ -21,7 +16,7 @@ struct MapChipData {
 //     {"1", MapChipType::KBlock},
 // };
 
-class MapChipField {
+class MapChipCase {
 public:
 	struct IndexSet {
 		uint32_t xIndex;
@@ -34,7 +29,6 @@ public:
 		float top;    // 上端
 	};
 
-
 public:
 	// 1ブロックのサイズ
 	// 幅
@@ -43,9 +37,9 @@ public:
 	static inline const float kBlockHeight = 1.0f;
 	// ブロックの個数
 	// 横
-	static inline const uint32_t kNumBlockHorizontal = 10;
+	static inline const uint32_t kNumBlockHorizontal = 4;
 	// 縦
-	static inline const uint32_t kNumBlockVirtical = 20;
+	static inline const uint32_t kNumBlockVirtical = 4;
 
 	const uint32_t GetNumBlockVirtical() { return kNumBlockVirtical; }
 
@@ -57,13 +51,13 @@ public:
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
 
-	MapChipData mapChipData_;
+	MapChipCaseData mapChipData_;
 
 	void ResetMapChipData();
 
 	void LoadMapChipCsv(const std::string& filePath);
 
-	MapChipType GetMapChipTypeByIndex(uint32_t xIndex, uint32_t yIndex);
+	MapChipCaseType GetMapChipTypeByIndex(uint32_t xIndex, uint32_t yIndex);
 
 	Vector3 GetMapChipPositionByIndex(uint32_t xIndex, uint32_t yIndex);
 
@@ -71,7 +65,16 @@ public:
 
 	Rect GetRectByIndex(uint32_t xIndex, uint32_t yIndex);
 
-
 	WorldTransform worldTransform_;
+
+	bool isFinish_ = false;
+
+	float mapCase = 0.0f;
+	// 見本の数(変更可)
+	static inline const uint32_t maxMapCase = 3;
+
+	float GetMapCase() { return mapCase; }
+
+	void Update();
 
 };
