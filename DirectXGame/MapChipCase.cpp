@@ -4,6 +4,7 @@
 #include <fstream>
 #include <map>
 #include <sstream>
+#include "imgui.h"
 
 namespace {
 
@@ -58,6 +59,7 @@ void MapChipCase::LoadMapChipCsv(const std::string& filePath) {
 			}
 		}
 	}
+	mapChipLoaded_ = true;
 }
 
 MapChipCaseType MapChipCase::GetMapChipTypeByIndex(uint32_t xIndex, uint32_t yIndex) {
@@ -93,9 +95,23 @@ MapChipCase::Rect MapChipCase::GetRectByIndex(uint32_t xIndex, uint32_t yIndex) 
 	return rect;
 }
 
+void MapChipCase::Initialize() {
+	for (uint32_t i = 0; i < kNumBlockVirtical; ++i) {
+		for (uint32_t j = 0; j < kNumBlockHorizontal; ++j) {
+			mapChipData_.data[i][j] = MapChipCaseType::kAir;
+		}
+	}
+}
+
 void MapChipCase::Update() {
+	ImGui::Begin("MapChipCase");
+	if (ImGui::Button("finish")) {
+		isFinish_ = false;	
+	}
+	ImGui::End();
 	if (isFinish_ == false) {
 		mapCase = float(rand() % maxMapCase) + 1;
 		isFinish_ = true;
+		mapChipLoaded_ = false;
 	}
 }

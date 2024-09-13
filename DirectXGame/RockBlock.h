@@ -4,6 +4,10 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
+/// <summary>
+/// 落下してくるブロックを固定するためのクラス(変更非推奨)
+/// </summary>
+
 class MapChipField;
 class FallRock;
 
@@ -48,6 +52,11 @@ public:
 
 	Vector3 GetWrodlTransform() { return worldTransform_.translation_; }
 
+	// 形ができているかのgetter
+	bool GetisClear() { return isClear_; }
+
+	void SetClear(bool clear) { isClear_ = clear; }
+
 private:
 	WorldTransform worldTransform_;
 	ViewProjection* viewProjection_ = nullptr;
@@ -56,6 +65,8 @@ private:
 	FallRock* fallRock_;
 
 	Model* model_ = nullptr;
+
+
 
 	// 1ブロックのサイズ
 	// 幅
@@ -67,5 +78,8 @@ private:
 	float fallTimer_ = 0.0f;
 	// ブロックが落下するまでのタイム(変更可)
 	float fallLimitTime_ = 1.0f;
+
+	// 形ができているか
+	bool isClear_ = false;
 
 };

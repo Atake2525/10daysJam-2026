@@ -67,6 +67,7 @@ Stage01::~Stage01() {
 		}
 	}
 	worldTransformBlocks_.clear();
+	worldTransformCaseBlocks_.clear();
 	delete player_;
 	delete mapChipField_;
 	for (int i = 0; i < 200; i++) {
@@ -81,6 +82,8 @@ Stage01::~Stage01() {
 void Stage01::Initialize() {
 	// ランダムシードを初期化
 	srand(static_cast<unsigned int>(time(NULL)));
+
+	debug = Model::CreateFromOBJ("cube");
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
@@ -101,10 +104,10 @@ void Stage01::Initialize() {
 	GenerateCaseBlocks();
 
 	// 座標をマップチップ番号で指定
-	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(5, 19);
+	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(5, 18);
 	player_ = new Player;
 	modelPlayer_ = Model::CreateFromOBJ("player");
-	player_->Initialize(modelPlayer_, &viewProjection_, {0, 0, 0});
+	player_->Initialize(modelPlayer_, &viewProjection_, playerPosition);
 	player_->SetMapChipField(mapChipField_);
 
 	player_->Update();
@@ -112,7 +115,6 @@ void Stage01::Initialize() {
 
 	modelFallRock_ = Model::CreateFromOBJ("soil");
 	modelRockBlock_ = Model::CreateFromOBJ("glassFloor");
-
 
 	for (int i = 0; i < 200; i++) {
 		fallRock_[i] = new FallRock;
@@ -122,6 +124,7 @@ void Stage01::Initialize() {
 		rockBlock_[i]->Initialize(modelRockBlock_, &viewProjection_);
 		rockBlock_[i]->SetMapChipField(mapChipField_);
 		rockBlock_[i]->SetFallRock(fallRock_[i]);
+		searcher_->SetRock(rockBlock_[i]);
 	}
 
     goal_ = new Goal;
@@ -153,14 +156,26 @@ void Stage01::Update() {
 	}
 	mapChipCase_->Update();
 	if (mapChipCase_->GetMapCase() == 1) {
-		mapChipCase_->LoadMapChipCsv("Resources/case01.csv");
-		GenerateCaseBlocks();
+		mapChipCase_->Initialize();
+		if (mapChipCase_->mapChipLoaded_ == false) {
+			worldTransformCaseBlocks_.clear();
+			mapChipCase_->LoadMapChipCsv("Resources/case01.csv");
+			GenerateCaseBlocks();
+		}
 	} else if (mapChipCase_->GetMapCase() == 2) {
-		mapChipCase_->LoadMapChipCsv("Resources/case02.csv");
-		GenerateCaseBlocks();
+		mapChipCase_->Initialize();
+		if (mapChipCase_->mapChipLoaded_ == false) {
+			worldTransformCaseBlocks_.clear();
+			mapChipCase_->LoadMapChipCsv("Resources/case02.csv");
+			GenerateCaseBlocks();
+		}
 	} else if (mapChipCase_->GetMapCase() == 3) {
-		mapChipCase_->LoadMapChipCsv("Resources/case03.csv");
-		GenerateCaseBlocks();
+		mapChipCase_->Initialize();
+		if (mapChipCase_->mapChipLoaded_ == false) {
+			worldTransformCaseBlocks_.clear();
+			mapChipCase_->LoadMapChipCsv("Resources/case03.csv");
+			GenerateCaseBlocks();
+		}
 	}
 	for (std::vector<WorldTransform*>& worldTransformCaseBlockLine : worldTransformCaseBlocks_) {
 		for (WorldTransform* worldTransformCaseBlock : worldTransformCaseBlockLine) {
@@ -174,6 +189,9 @@ void Stage01::Update() {
 				worldTransformCaseBlock->UpdateMatrix();
 		}
 	}
+
+	
+
 	ImGui::Begin("camera");
 	ImGui::DragFloat3("Translation", &viewProjection_.translation_.x, 0.1f);
 	ImGui::DragFloat3("Rotation", &viewProjection_.rotation_.x, 0.1f);
@@ -184,6 +202,68 @@ void Stage01::Update() {
 	rockBlock_[rockNum_]->Update();
 	if (fallRock_[rockNum_]->GetMoveFinish() == true) {
 		rockNum_++;
+	}
+
+	// 形の検索
+	// 要素数
+	const uint32_t kNumBlockVirtical = mapChipCase_->GetNumBlockVirtical();
+	const uint32_t kNumBlockHorizontal = mapChipCase_->GetNumBlockHorizontal();
+
+	//Caseの計算
+	for (uint32_t i = 0; i < kNumBlockVirtical; ++i) {
+		for (uint32_t j = 0; j < kNumBlockHorizontal; ++j) {
+			// for文でi,jの位置にブロックがあるか検索
+			if (mapChipCase_->GetMapChipTypeByIndex(j, i) == MapChipCaseType::kRock) {
+				searchCaseNums_[3 - i][j] = 1;
+				searchCaseNum_ += 1;
+			}
+			//// マップチップのブロックとfallBlockが同じ位置にあるか検索
+			// if (searchBlockNums_[j][i] == 1 && mapChipCase_->GetMapChipTypeByIndex(j, i + 4) == MapChipCaseType::kRock) {
+			//	searchBlocks_ += 1;
+			// }
+		}
+	}
+	// rockBlock計算
+	for (int k = 0; k < 200; k++) {
+		// searcher_->SetRock(rockBlock_[k]);
+		// searcher_->CaseCollision(Vector3{numWidthSearch_, numHeightSearch_, 0});
+		Vector3 fallRockPos = rockBlock_[k]->GetWrodlTransform();
+
+		for (uint32_t i = 0 + uint32_t(numHeightSearch_); i < 4; i++) {
+			for (uint32_t j = 0; j < 4; j++) {
+				if ((fallRockPos.x == searcher_->GetBlockWorldTransform().x + j + numWidthSearch_ && fallRockPos.y == searcher_->GetBlockWorldTransform().y - i + 1 + numHeightSearch_) &&
+				    rockBlock_[k]->GetisClear() == false) {
+					searchBlockNums_[uint32_t(fallRockPos.y - 1 + numHeightSearch_)][uint32_t(fallRockPos.x)] = 1;
+				}
+			}
+		}
+		// 以上の検索結果の数が一致しているか
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				if (searchBlockNums_[i][j] == 1 && searchCaseNums_[i][j] == 1 && searchBlockNums_[i][j] == searchCaseNums_[i][j]) {
+					searchBlocks_ += 1;
+					if (searchBlockNums_[i][j + 1] == 1) {
+						maxSearchPosition_ += 1 * 1.0f;
+					}
+				}
+			}
+		}
+
+	if (searchBlocks_ == searchCaseNum_) {
+		mapChipCase_->isFinish_ = false;
+	}
+	else {
+		searchBlocks_ = 0;
+	}
+		if (searcher_->GetIsEqual()) {
+			mapChipCase_->isFinish_ = false;
+			searcher_->SetIsEqual(false);
+			ResetSearch();
+			numHeightSearch_ = maxSearchPosition_;
+			if (numWidthSearch_ + 4 > rockBlock_[k]->GetWrodlTransform().x && numHeightSearch_ + 4 > rockBlock_[k]->GetWrodlTransform().y) {
+				rockBlock_[k]->SetClear(true);
+			}
+		}
 	}
 	// ブロックの重なりの解消
 	// ブロックが積み重なるようにする
@@ -281,6 +361,15 @@ void Stage01::Draw() {
 #pragma endregion
 }
 
+void Stage01::ResetSearch() {
+	for (uint32_t i = 0; i < 4; i++) {
+		for (uint32_t j = 0; j < 4; j++) {
+			searchBlockNums_[i][j] = 0;
+			searchCaseNums_[i][j] = 0;
+			searchBlocks_ = 0;
+			searchCaseNum_ = 0;
+		}
+	}
 void Stage01::CheckAllCollisions() {
     #pragma region 
 	{ 
