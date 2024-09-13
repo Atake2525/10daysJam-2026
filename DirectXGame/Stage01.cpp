@@ -73,6 +73,10 @@ Stage01::~Stage01() {
 		delete fallRock_[i];
 		delete rockBlock_[i];
 	}
+
+	delete skydome_;
+	delete modelSkydome_;
+
 }
 
 void Stage01::Initialize() {
@@ -90,7 +94,7 @@ void Stage01::Initialize() {
 
 	mapChipField_ = new MapChipField;
 	mapChipField_->LoadMapChipCsv("Resources/Stage01.csv");
-	blockModel_ = Model::CreateFromOBJ("glassFloor");
+	blockModel_ = Model::CreateFromOBJ("block1");
 
 	GenerateBlocks();
 	mapChipCase_ = new MapChipCase;
@@ -107,8 +111,8 @@ void Stage01::Initialize() {
 	player_->Update();
 	Vector3 position = player_->GetWorldPosition();
 
-	modelFallRock_ = Model::CreateFromOBJ("soil");
-	modelRockBlock_ = Model::CreateFromOBJ("glassFloor");
+	modelFallRock_ = Model::CreateFromOBJ("block2");
+	modelRockBlock_ = Model::CreateFromOBJ("block2");
 
 
 	for (int i = 0; i < 200; i++) {
@@ -120,6 +124,13 @@ void Stage01::Initialize() {
 		rockBlock_[i]->SetMapChipField(mapChipField_);
 		rockBlock_[i]->SetFallRock(fallRock_[i]);
 	}
+
+	Vector3 skydomePosition = {0, 0, 0};
+	skydome_ = new Skydome();
+	modelSkydome_ = Model::CreateFromOBJ("skyDome");
+	skydome_->Initialize(modelSkydome_, &viewProjection_, skydomePosition);
+
+
 
 	viewProjection_.Initialize();
 	viewProjection_.translation_ = {4, 3, -20.0f};
@@ -195,6 +206,8 @@ void Stage01::Update() {
 		}
 	}
 
+	skydome_->Update();
+
 	viewProjection_.UpdateMatrix();
 }
 
@@ -245,6 +258,9 @@ void Stage01::Draw() {
 		//rockBlock_[i]->Draw();
 	}
 	player_->Draw();
+
+	skydome_->Draw();
+
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

@@ -12,6 +12,7 @@
 #include "FallRock.h"
 #include "RockBlock.h"
 #include "MapChipCase.h"
+#include "Background.h"
 
 /// <summary>
 /// ゲームシーン
@@ -76,6 +77,12 @@ private: // メンバ変数
 	Model* modelRockBlock_ = nullptr;
 
 	int rockNum_ = 0;
+
+	Skydome* skydome_ = nullptr;
+	Model* modelSkydome_ = nullptr;
+
+
+
 
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;

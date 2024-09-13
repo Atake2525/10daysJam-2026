@@ -7,6 +7,8 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "Font.h"
+#include "Background.h"
 
 /// <summary>
 /// ゲームシーン
@@ -46,6 +48,23 @@ private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
+	
+	WorldTransform worldTransform_;
+	ViewProjection viewProjection_;
+	
+	TitleFont* titleFont_ = nullptr;
+	Model* modelTitle_ = nullptr;
+	SpaceKeyFont* spaceKeyFont_ = nullptr;
+	Model* modelSpaceKey_ = nullptr;
+
+	Skydome* skydome_ = nullptr;
+	Model* modelSkydome_ = nullptr;
+	Magma* magma_ = nullptr;
+	Model* modelMagma_ = nullptr;
+	StonePillar* stonePillar1_ = nullptr;
+	Model* modelStonePillar1_ = nullptr;
+	StonePillar* stonePillar2_ = nullptr;
+	Model* modelStonePillar2_ = nullptr;
 
 	bool finished_ = false;
 
