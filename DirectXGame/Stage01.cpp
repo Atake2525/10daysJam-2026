@@ -74,7 +74,9 @@ Stage01::~Stage01() {
 		delete fallRock_[i];
 		delete rockBlock_[i];
 	}
-	delete searcher_;
+	delete goal_;
+	delete modelGoal_;
+
 }
 
 void Stage01::Initialize() {
@@ -114,10 +116,6 @@ void Stage01::Initialize() {
 	modelFallRock_ = Model::CreateFromOBJ("soil");
 	modelRockBlock_ = Model::CreateFromOBJ("glassFloor");
 
-	searcher_ = new Searcher;
-	searcher_->Initialize(debug, &viewProjection_);
-	searcher_->SetMapChipCase(mapChipCase_);
-
 	for (int i = 0; i < 200; i++) {
 		fallRock_[i] = new FallRock;
 		fallRock_[i]->Initialize(modelFallRock_, &viewProjection_);
@@ -128,6 +126,13 @@ void Stage01::Initialize() {
 		rockBlock_[i]->SetFallRock(fallRock_[i]);
 		searcher_->SetRock(rockBlock_[i]);
 	}
+
+    goal_ = new Goal;
+	Vector3 goalPosition = mapChipField_->GetMapChipPositionByIndex(3, 15);
+	modelGoal_ = Model::CreateFromOBJ("goal");
+	goal_->Initialize(modelGoal_, &viewProjection_, goalPosition);
+	goalies_.push_back(goal_);
+
 
 	viewProjection_.Initialize();
 	viewProjection_.translation_ = {4, 3, -20.0f};
@@ -280,6 +285,11 @@ void Stage01::Update() {
 		}
 	}
 
+	goal_->Update();
+
+	// 全ての当たり判定を行う
+	CheckAllCollisions();
+
 	viewProjection_.UpdateMatrix();
 }
 
@@ -330,7 +340,8 @@ void Stage01::Draw() {
 		//rockBlock_[i]->Draw();
 	}
 	player_->Draw();
-	searcher_->Draw();
+
+	goal_->Draw();
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -359,4 +370,18 @@ void Stage01::ResetSearch() {
 			searchCaseNum_ = 0;
 		}
 	}
+void Stage01::CheckAllCollisions() {
+    #pragma region 
+	{ 
+		AABB aabb1, aabb2;
+		aabb1 = player_->GetAABB();
+		for (Goal* goal : goalies_) {
+			aabb2 = goal->GetAABB();
+			if (IsCollision(aabb1, aabb2)) {
+				player_->OnCollision(goal);
+				goal_->OnCollision(player_);
+			}
+		}
+	}
+#pragma endregion
 }

@@ -12,7 +12,7 @@
 #include "FallRock.h"
 #include "RockBlock.h"
 #include "MapChipCase.h"
-#include "Searcher.h"
+#include "Goal.h"
 
 /// <summary>
 /// ゲームシーン
@@ -51,6 +51,7 @@ public: // メンバ関数
 	// ステージgetter
 	int GetStage() const { return 1; }
 
+	void CheckAllCollisions();
 
 	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
 	std::vector<std::vector<WorldTransform*>> worldTransformCaseBlocks_;
@@ -76,7 +77,6 @@ private: // メンバ変数
 	RockBlock* rockBlock_[200];
 	Model* modelRockBlock_ = nullptr;
 
-	Searcher* searcher_ = nullptr;
 	// 縦の検索場所
 	float numHeightSearch_ = 0;
 	// 横の検索場所
@@ -97,6 +97,10 @@ private: // メンバ変数
 	Model* debug = nullptr;
 
 	int rockNum_ = 0;
+
+	Goal* goal_ = nullptr;
+	Model* modelGoal_ = nullptr;
+	std::list<Goal*> goalies_;
 
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;
