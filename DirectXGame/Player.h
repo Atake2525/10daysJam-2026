@@ -11,6 +11,8 @@
 
 class MapChipField;
 
+class Goal;
+
 class Player {
 public:
 
@@ -56,6 +58,7 @@ public:
 	// AABBを取得
 	AABB GetAABB();
 
+	void OnCollision(const Goal* goal);
 
 private:
 	// マップチップによるフィールド

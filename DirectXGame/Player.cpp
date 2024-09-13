@@ -65,6 +65,12 @@ AABB Player::GetAABB() {
 	return aabb;
 }
 
+void Player::OnCollision(const Goal* goal) { 
+	(void)goal;
+	//　ここにクリアフラグ紐づけ
+
+}
+
 // プレイヤー移動系
 void Player::Move() {
 	// 移動入力
